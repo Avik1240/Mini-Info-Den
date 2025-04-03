@@ -14,33 +14,18 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const userData = JSON.parse(localStorage.getItem("user"));
-      if (userData && "vendorId" in userData && userData.vendorId) { // ✅ Explicitly check vendorId presence
+      if (userData?.vendorId) { // ✅ Check vendorId safely
         setVendorId(userData.vendorId);
-      } else {
-        setVendorId(null); // ✅ Set to null for normal users
       }
     }
   }, []);
-  
-  
 
-  // ✅ Handle search form submission
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/books?query=${encodeURIComponent(searchQuery)}`);
-    }
-  };
+
 
   // ✅ Handle "View All Books" or "Add Book" button click
   const handleButtonClick = () => {
-    if (vendorId) {
-      router.push("/addBook"); // ✅ Vendors go to AddBook page
-    } else {
-      router.push("/books"); // ✅ Normal users go to the books page
-    }
+    router.push(vendorId ? "/addBook" : "/books");
   };
-  
 
   return (
     <div>
@@ -48,20 +33,7 @@ export default function Home() {
       <main className={styles.main}>
         <section className={styles.welcome}>
           <h1>Welcome to Info Den</h1>
-          <form onSubmit={handleSearch} className={styles.searchForm}>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search for a book..."
-              className={styles.searchInput}
-            />
-            <button type="submit" className={styles.searchButton}>
-              Search
-            </button>
-          </form>
 
-          {/* ✅ Conditional Button */}
           <button onClick={handleButtonClick} className={styles.viewBooksButton}>
             {vendorId ? "Add Book" : "View All Books"}
           </button>

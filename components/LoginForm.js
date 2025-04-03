@@ -8,6 +8,8 @@ const LoginForm = () => {
   const [isRegistering, setIsRegistering] = useState(false);
   const [isVendor, setIsVendor] = useState(false);
   const [message, setMessage] = useState("");
+  const [forgotPassword, setForgotPassword] = useState(false); // ✅ New State
+  const [loading, setLoading] = useState(false); // ✅ Track API calls
   const router = useRouter();
 
   // Form state changes dynamically based on vendor/user selection
@@ -36,139 +38,213 @@ const LoginForm = () => {
     });
   };
 
+  // Handle Login/Register Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    setLoading(true);
+
     const apiEndpoint = isRegistering ? "/api/register" : "/api/login";
-  
+
     try {
       const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, isVendor }), // ✅ Include isVendor
+        body: JSON.stringify({ ...formData, isVendor }),
       });
-  
+
       const data = await response.json();
-  
+
       if (!response.ok) {
         setMessage(data.message || "Something went wrong.");
         return;
       }
-  
+
       if (!data.user || !data.user.email) {
         return;
       }
-  
+
       localStorage.setItem(
         "user",
         JSON.stringify({
           _id: data.user._id,
           email: data.user.email,
           role: data.user.role || "user",
-          ...(data.user.vendorId ? { vendorId: data.user.vendorId } : {}), // ✅ Only store vendorId if it exists
+          ...(data.user.vendorId ? { vendorId: data.user.vendorId } : {}),
         })
       );
-      
-  
+
       router.push("/");
     } catch (error) {
       setMessage("Something went wrong.");
+    } finally {
+      setLoading(false);
     }
   };
-  
+
+  // Handle Forgot Password Submission
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch("/api/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setMessage(data.message || "Error sending reset email.");
+        return;
+      }
+
+      setMessage("Reset link sent to your email.");
+    } catch (error) {
+      setMessage("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>
-        {isRegistering ? "Register" : "Login"} as {isVendor ? "Vendor" : "User"}
+        {isRegistering
+          ? "Register"
+          : forgotPassword
+          ? "Forgot Password"
+          : "Login"}{" "}
+        as {isVendor ? "Vendor" : "User"}
       </h2>
 
-      <form onSubmit={handleSubmit}>
-        {isRegistering && isVendor && (
-          <>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Name:</label>
-              <input
-                className={styles.formInput}
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                placeholder="Enter your name"
-                required
-              />
-            </div>
+      {!forgotPassword ? (
+        <form onSubmit={handleSubmit}>
+          {isRegistering && isVendor && (
+            <>
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Name:</label>
+                <input
+                  className={styles.formInput}
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Enter your name"
+                  required
+                />
+              </div>
 
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Business Name:</label>
-              <input
-                className={styles.formInput}
-                type="text"
-                name="business_name"
-                value={formData.business_name}
-                onChange={handleChange}
-                placeholder="Enter your business name"
-                required
-              />
-            </div>
-          </>
-        )}
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Business Name:</label>
+                <input
+                  className={styles.formInput}
+                  type="text"
+                  name="business_name"
+                  value={formData.business_name}
+                  onChange={handleChange}
+                  placeholder="Enter your business name"
+                  required
+                />
+              </div>
+            </>
+          )}
 
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Email:</label>
-          <input
-            className={styles.formInput}
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-            required
-          />
-        </div>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Email:</label>
+            <input
+              className={styles.formInput}
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              required
+            />
+          </div>
 
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Password:</label>
-          <input
-            className={styles.formInput}
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter your password"
-            required
-          />
-        </div>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Password:</label>
+            <input
+              className={styles.formInput}
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Enter your password"
+              required
+            />
+          </div>
 
-        <div className={styles.formGroup}>
-          <label className={styles.formLabel}>Login as:</label>
-          <select
-            className={styles.formInput}
-            value={isVendor ? "vendor" : "user"}
-            onChange={handleRoleChange}
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Login as:</label>
+            <select
+              className={styles.formInput}
+              value={isVendor ? "vendor" : "user"}
+              onChange={handleRoleChange}
+            >
+              <option value="user">User</option>
+              <option value="vendor">Vendor</option>
+            </select>
+          </div>
+
+          <button type="submit" className={styles.submitButton} disabled={loading}>
+            {loading ? "Processing..." : isRegistering ? "Register" : "Login"}
+          </button>
+
+          {!isRegistering && (
+            <p
+              className={styles.forgotPassword}
+              onClick={() => setForgotPassword(true)}
+            >
+              Forgot Password?
+            </p>
+          )}
+        </form>
+      ) : (
+        // Forgot Password Form
+        <form onSubmit={handleForgotPassword}>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Enter Your Email:</label>
+            <input
+              className={styles.formInput}
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <button type="submit" className={styles.submitButton} disabled={loading}>
+            {loading ? "Sending..." : "Send Reset Link"}
+          </button>
+
+          <p
+            className={styles.forgotPassword}
+            onClick={() => setForgotPassword(false)}
           >
-            <option value="user">User</option>
-            <option value="vendor">Vendor</option>
-          </select>
-        </div>
-
-        <button type="submit" className={styles.submitButton}>
-          {isRegistering ? "Register" : "Login"}
-        </button>
-      </form>
+            Back to Login
+          </p>
+        </form>
+      )}
 
       {message && <p className={styles.message}>{message}</p>}
 
-      <p className={styles.toggleText}>
-        {isRegistering ? "Already have an account?" : "Don't have an account?"}
-        <button
-          type="button"
-          className={styles.toggleButton}
-          onClick={() => setIsRegistering(!isRegistering)}
-        >
-          {isRegistering ? "Login" : "Register"}
-        </button>
-      </p>
+      {!forgotPassword && (
+        <p className={styles.toggleText}>
+          {isRegistering ? "Already have an account?" : "New User?"}
+          <button
+            type="button"
+            className={styles.toggleButton}
+            onClick={() => setIsRegistering(!isRegistering)}
+          >
+            {isRegistering ? "Login" : "Register"}
+          </button>
+        </p>
+      )}
     </div>
   );
 };

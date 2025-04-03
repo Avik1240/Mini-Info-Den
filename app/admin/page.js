@@ -1,23 +1,26 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation"; // ✅ Read query from URL
 import styles from "../../styles/Admin.module.css";
-import { useRouter } from "next/navigation";
 import Navbar from "../../components/Navbar";
-import { Trash2 } from "lucide-react"; // ✅ Import delete icon
+import { Trash2 , RefreshCcw} from "lucide-react"; // ✅ Import delete icon
 
 export default function Admin() {
   const [books, setBooks] = useState([]);
   const [orders, setOrders] = useState([]);
   const [vendorId, setVendorId] = useState(null);
   const [loading, setLoading] = useState(false); // ✅ Added loading state
+  const [searchQuery, setSearchQuery] = useState(""); // ✅ Search state
+  const searchParams = useSearchParams();
+  const query = searchParams.get("query") || ""; // ✅ Get search query from URL
   const router = useRouter();
 
   // ✅ Step 1: Get vendorId from localStorage
   useEffect(() => {
     if (typeof window !== "undefined") {
       const vendorData = JSON.parse(localStorage.getItem("user"));
-      if (!vendorData || !vendorData.vendorId) { 
+      if (!vendorData || !vendorData.vendorId) {
         alert("Unauthorized access. Redirecting...");
         router.push("/login"); // Redirect non-vendors
       } else {
@@ -27,24 +30,38 @@ export default function Admin() {
   }, []);
 
   // ✅ Step 2: Fetch books & orders
-  useEffect(() => {
-    if (vendorId) {
-      fetch(`/api/books?vendorId=${vendorId}`) // ✅ Fetch vendor-specific books
-        .then((res) => res.json())
-        .then((data) => setBooks(data))
-        .catch((err) => console.error("Error fetching books:", err));
+  const fetchBooks = async () => {
+    if (!vendorId) return;
+
+    setLoading(true);
+    let queryParam = `?vendorId=${vendorId}`;
+    if (query) {
+      queryParam += `&query=${encodeURIComponent(query)}`;
     }
 
-    fetch("/api/orders/all")
-      .then((res) => res.json())
-      .then(setOrders)
-      .catch((err) => console.error("Error fetching orders:", err));
-  }, [vendorId]); // ✅ Re-run when vendorId changes
+    try {
+      const res = await fetch(`/api/books${queryParam}`);
+      if (res.ok) {
+        const data = await res.json();
+        setBooks(data);
+      } else {
+        console.error("Error fetching books");
+      }
+    } catch (err) {
+      console.error("Error fetching books:", err);
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchBooks();
+  }, [vendorId, query]); // ✅ Re-run when vendorId or search query changes
 
   // ✅ Step 3: Handle Book Deletion
   const handleDelete = async (bookId) => {
     if (!confirm("Are you sure you want to delete this book?")) return;
-    
+
     setLoading(true); // ✅ Show loading state
 
     try {
@@ -76,9 +93,39 @@ export default function Admin() {
         {vendorId && (
           <section>
             <h2 className={styles.h2}>Your Books</h2>
+
+            {/* ✅ Search & Refresh */}
+            <div className={styles.searchWrap}>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  router.push(
+                    `/admin?query=${encodeURIComponent(searchQuery)}`
+                  );
+                }}
+                className={styles.searchForm}
+              >
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search your books..."
+                  className={styles.searchInput}
+                />
+                <button type="submit" className={styles.searchButton}>
+                  Search
+                </button>
+              </form>
+              <button onClick={fetchBooks} className={styles.refreshButton} title="Refresh Books">
+              <RefreshCcw size={20} />
+              </button>
+            </div>
+
             <div className={styles.booksWrapper}>
               <div className={styles.booksGrid}>
-                {books.length > 0 ? (
+                {loading ? (
+                  <p>Loading books...</p>
+                ) : books.length > 0 ? (
                   books.map((book) => (
                     <div key={book._id} className={styles.bookCard}>
                       <h2>{book.title}</h2>

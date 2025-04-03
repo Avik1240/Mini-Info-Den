@@ -71,55 +71,79 @@ export default function AddBookForm() {
         <section>
           <h1 className={styles.h1}>Add Book</h1>
           <form onSubmit={handleAddBook} className={styles.form}>
-            <input
-              type="text"
-              placeholder="Title"
-              value={newBook.title}
-              onChange={(e) =>
-                setNewBook({ ...newBook, title: e.target.value })
-              }
-            />
-            <input
-              type="text"
-              placeholder="Author"
-              value={newBook.author}
-              onChange={(e) =>
-                setNewBook({ ...newBook, author: e.target.value })
-              }
-            />
-            <input
-              type="number"
-              placeholder="Price"
-              value={newBook.price}
-              onChange={(e) =>
-                setNewBook({ ...newBook, price: +e.target.value })
-              }
-            />
-            <input
-              type="number"
-              placeholder="Rental Fee (/day)"
-              value={newBook.rentalFee}
-              onChange={(e) =>
-                setNewBook({ ...newBook, rentalFee: +e.target.value })
-              }
-            />
-            <input
-              type="number"
-              placeholder="Security Deposit"
-              value={newBook.securityDeposit}
-              onChange={(e) =>
-                setNewBook({ ...newBook, securityDeposit: +e.target.value })
-              }
-            />
-            <input
-              type="number"
-              placeholder="Stock"
-              value={newBook.stock}
-              onChange={(e) =>
-                setNewBook({ ...newBook, stock: +e.target.value })
-              }
-            />
-            <button type="submit">Add Book</button>
+            <div className={styles.formInputWrap}>
+              <label>Title</label>
+              <input
+                type="text"
+                placeholder="Title"
+                value={newBook.title}
+                onChange={(e) =>
+                  setNewBook({ ...newBook, title: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className={styles.formInputWrap}>
+              <label>Author</label>
+              <input
+                type="text"
+                placeholder="Author"
+                value={newBook.author}
+                onChange={(e) =>
+                  setNewBook({ ...newBook, author: e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className={styles.formInputWrap}>
+              <label>Price</label>
+              <input
+                type="number"
+                placeholder="Price"
+                value={newBook.price}
+                onChange={(e) =>
+                  setNewBook({ ...newBook, price: +e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className={styles.formInputWrap}>
+              <label>Rental Fee (/day)</label>
+              <input
+                type="number"
+                placeholder="Rental Fee (/day)"
+                value={newBook.rentalFee}
+                onChange={(e) =>
+                  setNewBook({ ...newBook, rentalFee: +e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className={styles.formInputWrap}>
+              <label>Security Amount</label>
+              <input
+                type="number"
+                placeholder="Security Amount"
+                value={newBook.securityDeposit}
+                onChange={(e) =>
+                  setNewBook({ ...newBook, securityDeposit: +e.target.value })
+                }
+                required
+              />
+            </div>
+            <div className={styles.formInputWrap}>
+              <label>Stock</label>
+              <input
+                type="number"
+                placeholder="Stock"
+                value={newBook.stock}
+                onChange={(e) =>
+                  setNewBook({ ...newBook, stock: +e.target.value })
+                }
+                required
+              />
+            </div>
+              <button type="submit">Add Book</button>
           </form>
         </section>
       </main>
