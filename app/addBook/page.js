@@ -72,7 +72,7 @@ export default function AddBookForm() {
           <h1 className={styles.h1}>Add Book</h1>
           <form onSubmit={handleAddBook} className={styles.form}>
             <div className={styles.formInputWrap}>
-              <label>Title</label>
+              <label>Title <span className={styles.mandatory}>*</span></label>
               <input
                 type="text"
                 placeholder="Title"
@@ -84,7 +84,7 @@ export default function AddBookForm() {
               />
             </div>
             <div className={styles.formInputWrap}>
-              <label>Author</label>
+              <label>Author <span className={styles.mandatory}>*</span></label>
               <input
                 type="text"
                 placeholder="Author"
@@ -96,7 +96,7 @@ export default function AddBookForm() {
               />
             </div>
             <div className={styles.formInputWrap}>
-              <label>Price</label>
+              <label>Price <span className={styles.mandatory}>*</span></label>
               <input
                 type="number"
                 placeholder="Price"
@@ -108,7 +108,7 @@ export default function AddBookForm() {
               />
             </div>
             <div className={styles.formInputWrap}>
-              <label>Rental Fee (/day)</label>
+              <label>Rental Fee (/day) <span className={styles.mandatory}>*</span></label>
               <input
                 type="number"
                 placeholder="Rental Fee (/day)"
@@ -120,7 +120,7 @@ export default function AddBookForm() {
               />
             </div>
             <div className={styles.formInputWrap}>
-              <label>Security Amount</label>
+              <label>Security Amount <span className={styles.mandatory}>*</span></label>
               <input
                 type="number"
                 placeholder="Security Amount"
@@ -132,7 +132,7 @@ export default function AddBookForm() {
               />
             </div>
             <div className={styles.formInputWrap}>
-              <label>Stock</label>
+              <label>Stock <span className={styles.mandatory}>*</span></label>
               <input
                 type="number"
                 placeholder="Stock"

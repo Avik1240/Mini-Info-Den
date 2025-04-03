@@ -46,7 +46,7 @@ const Navbar = () => {
               className={styles.userButton}
               onClick={() => setIsOpen(!isOpen)}
             >
-              Hi! {user?.email?.includes("@") ? user.email.split("@")[0] : "User"}
+              Hi {user?.email?.includes("@") ? user.email.split("@")[0] : "User"}
             </button>
             {isOpen && (
               <div className={styles.dropdownContent}>

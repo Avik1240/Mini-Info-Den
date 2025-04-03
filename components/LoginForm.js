@@ -124,7 +124,7 @@ const LoginForm = () => {
           {isRegistering && isVendor && (
             <>
               <div className={styles.formGroup}>
-                <label className={styles.formLabel}>Name:</label>
+                <label className={styles.formLabel}>Name: <span className={styles.mandatory}>*</span></label>
                 <input
                   className={styles.formInput}
                   type="text"
@@ -137,7 +137,7 @@ const LoginForm = () => {
               </div>
 
               <div className={styles.formGroup}>
-                <label className={styles.formLabel}>Business Name:</label>
+                <label className={styles.formLabel}>Business Name: <span className={styles.mandatory}>*</span></label>
                 <input
                   className={styles.formInput}
                   type="text"
@@ -152,7 +152,7 @@ const LoginForm = () => {
           )}
 
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Email:</label>
+            <label className={styles.formLabel}>Email: <span className={styles.mandatory}>*</span></label>
             <input
               className={styles.formInput}
               type="email"
@@ -165,7 +165,7 @@ const LoginForm = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Password:</label>
+            <label className={styles.formLabel}>Password: <span className={styles.mandatory}>*</span></label>
             <input
               className={styles.formInput}
               type="password"
@@ -178,7 +178,7 @@ const LoginForm = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Login as:</label>
+            <label className={styles.formLabel}>Login as: <span className={styles.mandatory}>*</span></label>
             <select
               className={styles.formInput}
               value={isVendor ? "vendor" : "user"}
@@ -206,7 +206,7 @@ const LoginForm = () => {
         // Forgot Password Form
         <form onSubmit={handleForgotPassword}>
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Enter Your Email:</label>
+            <label className={styles.formLabel}>Enter Your Email: <span className={styles.mandatory}>*</span></label>
             <input
               className={styles.formInput}
               type="email"
