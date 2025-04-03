@@ -10,16 +10,14 @@ export default function Books() {
 
   const fetchBooks = async () => {
     setLoading(true);
-
+  
     const user = JSON.parse(localStorage.getItem("user"));
-    if (!user || !user.vendorId) {
-      console.error("Vendor ID not found");
-      setLoading(false);
-      return;
-    }
-
+  
+    // ✅ Fetch books based on role
+    const queryParam = user?.vendorId ? `?vendorId=${user.vendorId}` : "";
+  
     try {
-      const res = await fetch(`/api/books?vendorId=${user.vendorId}`);
+      const res = await fetch(`/api/books${queryParam}`);
       if (res.ok) {
         const data = await res.json();
         setBooks(data);
@@ -29,8 +27,10 @@ export default function Books() {
     } catch (error) {
       console.error("Error fetching books:", error);
     }
+    
     setLoading(false);
   };
+  
 
   useEffect(() => {
     fetchBooks();
@@ -54,6 +54,9 @@ export default function Books() {
                   <h2>{book.title}</h2>
                   <p>Author: {book.author}</p>
                   <p>Price: ₹{book.price}</p>
+                  <p>Rental Fee: ₹{book.rentalFee}</p>
+                  <p>Security Deposit: ₹{book.securityDeposit}</p>
+                  <p>Books in stock: {book.stock}</p>
                 </div>
               ))}
             </div>

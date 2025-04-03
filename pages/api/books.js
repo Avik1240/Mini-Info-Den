@@ -1,34 +1,35 @@
 import dbConnect from '../../lib/dbConnect';
 import Book from '../../models/Book';
-import Vendor from '../../models/Vendor';
 
 export default async function handler(req, res) {
   await dbConnect();
 
   if (req.method === 'GET') {
-    const { query } = req.query;
+    const { vendorId, query } = req.query;
+
     try {
-      const books = await Book.find({
-        $or: [
-          { title: { $regex: query || '', $options: 'i' } },
-          { author: { $regex: query || '', $options: 'i' } },
-        ],
-      }).populate('vendor', 'name email'); // ✅ Populating vendor details
+      // ✅ Fetch books ONLY for the specified vendor
+      const filter = vendorId ? { vendor: vendorId } : {};
+      
+      // ✅ Include search functionality if `query` is provided
+      if (query) {
+        filter.$or = [
+          { title: { $regex: query, $options: 'i' } },
+          { author: { $regex: query, $options: 'i' } },
+        ];
+      }
+
+      const books = await Book.find(filter).populate('vendor', 'name email');
+
       res.status(200).json(books);
     } catch (error) {
-      res.status(500).json({ message: 'Error fetching books' });
+      res.status(500).json({ message: 'Error fetching books', error: error.message });
     }
   } else if (req.method === 'POST') {
     const { title, author, price, rentalFee, securityDeposit, stock, vendorId } = req.body;
 
     if (!vendorId) {
       return res.status(400).json({ message: 'Vendor ID is required' });
-    }
-
-    // ✅ Ensure the vendor exists
-    const vendor = await Vendor.findById(vendorId);
-    if (!vendor) {
-      return res.status(403).json({ message: 'Invalid vendor' });
     }
 
     try {
@@ -39,7 +40,7 @@ export default async function handler(req, res) {
         rentalFee,
         securityDeposit,
         stock,
-        vendor: vendorId, // ✅ Associating book with vendor
+        vendor: vendorId, 
       });
 
       await book.save();

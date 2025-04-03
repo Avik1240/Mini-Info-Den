@@ -65,9 +65,10 @@ const LoginForm = () => {
           _id: data.user._id,
           email: data.user.email,
           role: data.user.role || "user",
-          vendorId: data.user.vendorId || null,
+          ...(data.user.vendorId ? { vendorId: data.user.vendorId } : {}), // ✅ Only store vendorId if it exists
         })
       );
+      
   
       router.push("/");
     } catch (error) {
