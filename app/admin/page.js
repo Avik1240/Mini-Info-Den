@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import styles from "../../styles/Admin.module.css";
 import { useRouter } from "next/navigation";
 import Navbar from "../../components/Navbar";
+import { Trash2 } from "lucide-react"; // ✅ Import delete icon
 
 export default function Admin() {
   const [books, setBooks] = useState([]);
   const [orders, setOrders] = useState([]);
   const [vendorId, setVendorId] = useState(null);
+  const [loading, setLoading] = useState(false); // ✅ Added loading state
   const router = useRouter();
 
   // ✅ Step 1: Get vendorId from localStorage
@@ -29,10 +31,7 @@ export default function Admin() {
     if (vendorId) {
       fetch(`/api/books?vendorId=${vendorId}`) // ✅ Fetch vendor-specific books
         .then((res) => res.json())
-        .then((data) => {
-          console.log("Fetched Books:", data); // Debugging
-          setBooks(data);
-        })
+        .then((data) => setBooks(data))
         .catch((err) => console.error("Error fetching books:", err));
     }
 
@@ -41,6 +40,32 @@ export default function Admin() {
       .then(setOrders)
       .catch((err) => console.error("Error fetching orders:", err));
   }, [vendorId]); // ✅ Re-run when vendorId changes
+
+  // ✅ Step 3: Handle Book Deletion
+  const handleDelete = async (bookId) => {
+    if (!confirm("Are you sure you want to delete this book?")) return;
+    
+    setLoading(true); // ✅ Show loading state
+
+    try {
+      const res = await fetch("/api/books", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bookId }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to delete book");
+      }
+
+      setBooks((prevBooks) => prevBooks.filter((book) => book._id !== bookId)); // ✅ Update UI instantly
+    } catch (error) {
+      console.error("Error deleting book:", error);
+      alert("Error: Could not delete book.");
+    } finally {
+      setLoading(false); // ✅ Hide loading state
+    }
+  };
 
   return (
     <div>
@@ -62,6 +87,13 @@ export default function Admin() {
                       <p>Rental Fee: ₹{book.rentalFee}/day</p>
                       <p>Security Deposit: ₹{book.securityDeposit}</p>
                       <p>Stock: {book.stock}</p>
+                      <button
+                        className={styles.deleteButton}
+                        onClick={() => handleDelete(book._id)}
+                        disabled={loading} // ✅ Disable button while deleting
+                      >
+                        <Trash2 size={20} color={loading ? "gray" : "red"} />
+                      </button>
                     </div>
                   ))
                 ) : (

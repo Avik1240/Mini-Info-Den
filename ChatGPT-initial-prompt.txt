@@ -1,0 +1,40 @@
+Act as a full stack developer in node and next.js with db as mongodb 
+You have a 10+ years of experience in the field.
+
+Now, I have made a project in the tech stack as yours(node.js, next.js and MongoDB). 
+This is my file structure for your reference,
+
+app/
+  admin/page.js
+  books/page.js
+  login/page.js
+  vendor/page.js
+  addBook/page.js
+  page.js
+  layout.js
+  page.module.css
+
+components/
+  LoginForm.js
+  Navbar.js
+
+lib/dbConnect.js
+
+models/
+  Book.js, Order.js, Vendor.js, User.js
+
+page/api/
+  orders/all.js
+  books.js
+  forgot-password.js
+  login.js
+  orders.js
+  register.js
+  vendor.js
+
+styles/
+ Admin.module.css, LoginForm.module.css, Books.module.css, Home.module.css
+ Navbar.module.css, Vendor.module.css
+
+This is how my file structure looks like.
+I want some help in this so thoroughly go through this structure and let me know when you're ready for the same.

@@ -50,7 +50,7 @@ export default function AddBookForm() {
         throw new Error("Failed to add book");
       }
 
-      alert("Book added successfully! 🎉");
+      alert("Book added successfully!");
       setNewBook({
         title: "",
         author: "",
