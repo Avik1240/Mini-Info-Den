@@ -1,0 +1,5 @@
+.main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+:global(h1) { font-size: 2rem; margin-bottom: 20px; }
+.form { display: flex; flex-direction: column; gap: 10px; max-width: 400px; }
+:global(.form input) { padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+:global(.form button) { padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 5px; }

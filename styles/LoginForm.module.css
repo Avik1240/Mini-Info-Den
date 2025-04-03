@@ -1,0 +1,10 @@
+/* styles/LoginForm.module.css */
+.container { max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+.title { text-align: center; }
+.formGroup { margin-bottom: 15px; }
+.formLabel { display: block; margin-bottom: 5px; }
+.formInput { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+.submitButton { width: 100%; padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; }
+.submitButton:hover { background-color: #0056b3; }
+.forgotPassword { margin-top: 10px; color: #007bff; cursor: pointer; text-decoration: underline; font-size: 14px; }
+.forgotPassword:hover { color: #0056b3; }

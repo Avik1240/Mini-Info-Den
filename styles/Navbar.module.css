@@ -1,0 +1,12 @@
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 30px; background-color: #333; color: white; }
+.logo a { font-size: 1.5rem; font-weight: bold; color: white; text-decoration: none; }
+.navLinks { display: flex; gap: 20px; align-items: center; }
+.navLinks a { color: white; text-decoration: none; font-size: 1rem; }
+.loginButton { background-color: #007bff; padding: 8px 15px; border-radius: 5px; }
+.loginButton:hover { background-color: #0056b3; }
+.dropdown { position: relative; }
+.userButton { background-color: #007bff; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
+.userButton:hover { background-color: #0056b3; }
+.dropdownContent { position: absolute; top: 100%; right: 0; background-color: #fff; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); padding: 10px; }
+.logoutButton { background-color: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+.logoutButton:hover { background-color: #cc0000; }
