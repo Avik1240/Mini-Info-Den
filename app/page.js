@@ -10,19 +10,38 @@ export default function Home() {
   const [vendorId, setVendorId] = useState(null);
   const router = useRouter();
 
-  // ✅ Check if logged-in user is a vendor
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const userData = JSON.parse(localStorage.getItem("user"));
-      if (userData?.vendorId) { // ✅ Check vendorId safely
-        setVendorId(userData.vendorId);
+    const validateSession = async () => {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) return router.push("/login");
+  
+      const user = JSON.parse(storedUser);
+  
+      try {
+        // Fetch server start time
+        const serverRes = await fetch("/api/session/server-time");
+        const serverData = await serverRes.json();
+  
+        if (!serverRes.ok) throw new Error("Failed to fetch server time");
+  
+        if (new Date(user.loginTime) < new Date(serverData.serverStartTime)) {
+          localStorage.removeItem("user");
+          return router.push("/login");
+        }
+  
+        setVendorId(user.vendorId || null);
+      } catch (error) {
+        console.error("Session validation failed:", error);
+        localStorage.removeItem("user");
+        router.push("/login");
       }
-    }
+    };
+  
+    validateSession();
   }, []);
+  
+  
 
-
-
-  // ✅ Handle "View All Books" or "Add Book" button click
   const handleButtonClick = () => {
     router.push(vendorId ? "/addBook" : "/books");
   };

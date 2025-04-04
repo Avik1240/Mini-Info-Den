@@ -39,6 +39,7 @@ const LoginForm = () => {
   };
 
   // Handle Login/Register Submission
+  // Handle Login/Register Submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -54,25 +55,57 @@ const LoginForm = () => {
 
       const data = await response.json();
 
-      if (!response.ok) {
+      if (!response.ok || !data.user || !data.user.email) {
         setMessage(data.message || "Something went wrong.");
         return;
       }
 
-      if (!data.user || !data.user.email) {
+      const userObject = {
+        _id: data.user._id,
+        email: data.user.email,
+        role: data.user.role || "user",
+        ...(data.user.vendorId ? { vendorId: data.user.vendorId } : {}),
+        loginTime: new Date().toISOString(),
+      };
+
+      // 🧠 Temporarily set user to check session
+      localStorage.setItem("user", JSON.stringify(userObject));
+
+      // ✅ Check session immediately before redirecting
+      const checkRes = await fetch("/api/session/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId: userObject._id,
+          role: userObject.role,
+          loginTime: userObject.loginTime,
+        }),
+      });
+
+      const checkData = await checkRes.json();
+
+      if (!checkData.valid) {
+        localStorage.removeItem("user");
+        setMessage("Session invalid. Please login again.");
         return;
       }
+      // 🛒 Fetch and store cart from MongoDB
+      try {
+        const cartRes = await fetch("/api/cart/get", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: userObject._id }),
+        });
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          _id: data.user._id,
-          email: data.user.email,
-          role: data.user.role || "user",
-          ...(data.user.vendorId ? { vendorId: data.user.vendorId } : {}),
-        })
-      );
+        const cartData = await cartRes.json();
+        if (cartRes.ok && cartData.cart) {
+          localStorage.setItem("cart", JSON.stringify(cartData.cart));
+        }
+      } catch (err) {
+        console.error("Error syncing cart from DB:", err);
+      }
 
+      // 🟢 All good — redirect to homepage
       router.push("/");
     } catch (error) {
       setMessage("Something went wrong.");
@@ -124,7 +157,9 @@ const LoginForm = () => {
           {isRegistering && isVendor && (
             <>
               <div className={styles.formGroup}>
-                <label className={styles.formLabel}>Name: <span className={styles.mandatory}>*</span></label>
+                <label className={styles.formLabel}>
+                  Name: <span className={styles.mandatory}>*</span>
+                </label>
                 <input
                   className={styles.formInput}
                   type="text"
@@ -137,7 +172,9 @@ const LoginForm = () => {
               </div>
 
               <div className={styles.formGroup}>
-                <label className={styles.formLabel}>Business Name: <span className={styles.mandatory}>*</span></label>
+                <label className={styles.formLabel}>
+                  Business Name: <span className={styles.mandatory}>*</span>
+                </label>
                 <input
                   className={styles.formInput}
                   type="text"
@@ -152,7 +189,9 @@ const LoginForm = () => {
           )}
 
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Email: <span className={styles.mandatory}>*</span></label>
+            <label className={styles.formLabel}>
+              Email: <span className={styles.mandatory}>*</span>
+            </label>
             <input
               className={styles.formInput}
               type="email"
@@ -165,7 +204,9 @@ const LoginForm = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Password: <span className={styles.mandatory}>*</span></label>
+            <label className={styles.formLabel}>
+              Password: <span className={styles.mandatory}>*</span>
+            </label>
             <input
               className={styles.formInput}
               type="password"
@@ -178,7 +219,9 @@ const LoginForm = () => {
           </div>
 
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Login as: <span className={styles.mandatory}>*</span></label>
+            <label className={styles.formLabel}>
+              Login as: <span className={styles.mandatory}>*</span>
+            </label>
             <select
               className={styles.formInput}
               value={isVendor ? "vendor" : "user"}
@@ -189,7 +232,11 @@ const LoginForm = () => {
             </select>
           </div>
 
-          <button type="submit" className={styles.submitButton} disabled={loading}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={loading}
+          >
             {loading ? "Processing..." : isRegistering ? "Register" : "Login"}
           </button>
 
@@ -206,7 +253,9 @@ const LoginForm = () => {
         // Forgot Password Form
         <form onSubmit={handleForgotPassword}>
           <div className={styles.formGroup}>
-            <label className={styles.formLabel}>Enter Your Email: <span className={styles.mandatory}>*</span></label>
+            <label className={styles.formLabel}>
+              Enter Your Email: <span className={styles.mandatory}>*</span>
+            </label>
             <input
               className={styles.formInput}
               type="email"
@@ -218,7 +267,11 @@ const LoginForm = () => {
             />
           </div>
 
-          <button type="submit" className={styles.submitButton} disabled={loading}>
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={loading}
+          >
             {loading ? "Sending..." : "Send Reset Link"}
           </button>
 

@@ -10,15 +10,18 @@ export default async function handler(req, res) {
 
   await dbConnect();
 
-  const { email, password } = req.body;
+  const { email, password, isVendor } = req.body;
 
   try {
-    let user = await User.findOne({ email });
-    let role = "user";
+    let user = null;
+    let role = null;
 
-    if (!user) {
+    if (isVendor) {
       user = await Vendor.findOne({ email });
       role = "vendor";
+    } else {
+      user = await User.findOne({ email });
+      role = "user";
     }
 
     if (!user) {
@@ -28,6 +31,11 @@ export default async function handler(req, res) {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password' });
+    }
+
+    // Extra protection: Check if user actually exists in correct collection
+    if ((isVendor && role !== "vendor") || (!isVendor && role !== "user")) {
+      return res.status(403).json({ message: 'Unauthorized login attempt: role mismatch' });
     }
 
     res.status(200).json({
