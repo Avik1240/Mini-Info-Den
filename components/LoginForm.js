@@ -43,23 +43,23 @@ const LoginForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
+  
     const apiEndpoint = isRegistering ? "/api/register" : "/api/login";
-
+  
     try {
       const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...formData, isVendor }),
       });
-
+  
       const data = await response.json();
-
+  
       if (!response.ok || !data.user || !data.user.email) {
         setMessage(data.message || "Something went wrong.");
         return;
       }
-
+  
       const userObject = {
         _id: data.user._id,
         email: data.user.email,
@@ -67,45 +67,41 @@ const LoginForm = () => {
         ...(data.user.vendorId ? { vendorId: data.user.vendorId } : {}),
         loginTime: new Date().toISOString(),
       };
-
-      // 🧠 Temporarily set user to check session
+  
       localStorage.setItem("user", JSON.stringify(userObject));
-
-      // ✅ Check session immediately before redirecting
-      const checkRes = await fetch("/api/session/session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          userId: userObject._id,
-          role: userObject.role,
-          loginTime: userObject.loginTime,
+  
+      // ✅ Fire session validation and cart fetch in parallel
+      const [sessionRes, cartRes] = await Promise.all([
+        fetch("/api/session/session", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userId: userObject._id,
+            role: userObject.role,
+            loginTime: userObject.loginTime,
+          }),
         }),
-      });
-
-      const checkData = await checkRes.json();
-
-      if (!checkData.valid) {
+        fetch("/api/cart/get", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: userObject._id }),
+        }),
+      ]);
+  
+      const sessionData = await sessionRes.json();
+      const cartData = await cartRes.json();
+  
+      if (!sessionData.valid) {
         localStorage.removeItem("user");
         setMessage("Session invalid. Please login again.");
         return;
       }
-      // 🛒 Fetch and store cart from MongoDB
-      try {
-        const cartRes = await fetch("/api/cart/get", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ userId: userObject._id }),
-        });
-
-        const cartData = await cartRes.json();
-        if (cartRes.ok && cartData.cart) {
-          localStorage.setItem("cart", JSON.stringify(cartData.cart));
-        }
-      } catch (err) {
-        console.error("Error syncing cart from DB:", err);
+  
+      if (cartRes.ok && cartData.cart) {
+        localStorage.setItem("cart", JSON.stringify(cartData.cart));
       }
-
-      // 🟢 All good — redirect to homepage
+  
+      // 🚀 Redirect instantly
       router.push("/");
     } catch (error) {
       setMessage("Something went wrong.");
@@ -113,6 +109,7 @@ const LoginForm = () => {
       setLoading(false);
     }
   };
+  
 
   // Handle Forgot Password Submission
   const handleForgotPassword = async (e) => {

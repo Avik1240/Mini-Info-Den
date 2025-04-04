@@ -2,11 +2,12 @@
 import { useEffect, useState } from "react";
 import styles from "../../styles/Cart.module.css";
 import Navbar from "../../components/Navbar";
+import { useRouter } from "next/navigation";
 
 export default function CartPage() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
-
+  const router = useRouter();
   // 🔄 Fetch cart from MongoDB
   const fetchUserCart = async (userId) => {
     try {
@@ -36,6 +37,7 @@ export default function CartPage() {
   }, []);
 
   // 🛒 Update cart (local + MongoDB)
+  // ✅ Sync updated cart with MongoDB
   const syncCartToDB = async (updatedCart) => {
     const storedUser = localStorage.getItem("user");
     if (!storedUser) return;
@@ -59,61 +61,84 @@ export default function CartPage() {
     }
   };
   
+  
+
+  // ✅ Add/remove item in cart and sync state + DB
   const updateCart = (book, quantityChange) => {
-    setCart((prevCart) => {
-      const updatedCart = prevCart.map(item =>
-        item.bookId === book.bookId || item.bookId === book._id
-          ? { ...item, quantity: item.quantity + quantityChange }
-          : item
-      );
+    let existingCart = [...cart];
+    const bookId = book._id || book.bookId;
   
-      // Remove if quantity is 0
-      const finalCart = updatedCart.filter(item => item.quantity > 0);
+    const index = existingCart.findIndex(item => item.bookId === bookId);
   
-      localStorage.setItem("cart", JSON.stringify(finalCart));
+    if (index !== -1) {
+      existingCart[index].quantity += quantityChange;
   
-      return finalCart;
-    });
+      if (existingCart[index].quantity <= 0) {
+        existingCart.splice(index, 1);
+      }
+    } else if (quantityChange > 0) {
+      existingCart.push({
+        bookId: bookId,
+        quantity: quantityChange,
+        vendorId: book.vendorId,
+      });
+    }
+  
+    setCart(existingCart);
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+  
+    // ✅ Send clean data to backend
+    syncCartToDB(existingCart);
   };
-  
+
   // ✅ Sync to DB whenever `cart` changes
   useEffect(() => {
     if (cart.length > 0) {
       syncCartToDB(cart);
     }
   }, [cart]);
-  
-  
-  
 
-
+  const handleButtonClick = () => {
+    router.push("/books");
+  };
 
   return (
     <div>
       <Navbar />
       <div className={styles.cartContainer}>
-        <h1>Your Cart</h1>
-
         {cart.length === 0 ? (
-          <p>Your cart is empty.</p>
+          <div className={styles.cartEmpty}>
+            <h1>Feels so Light !!</h1>
+            <p>Your cart is empty.</p>
+            <p className={styles.cartExplore}>Explore to grab the knowledge .....</p>
+            <button
+              onClick={handleButtonClick}
+              className={styles.viewBooksButton}
+            >
+              View Books
+            </button>
+          </div>
         ) : (
-          <div className={styles.cartList}>
-            {cart.map((book) => (
-              <div key={book._id} className={styles.cartItem}>
-                <h3>{book.title}</h3>
-                <p>Author: {book.author}</p>
-                <p>Price: ₹{book.price}</p>
-                <p>Rental Fee: ₹{book.rentalFee}</p>
-                <p>Security Deposit: ₹{book.securityDeposit}</p>
+          <div>
+            <h1>Your Cart</h1>
+            <div className={styles.cartList}>
+              {cart.map((book) => (
+                <div key={book._id} className={styles.cartItem}>
+                  <h2>{book.title}</h2>
+                  <p>Author: {book.author}</p>
+                  <p>Price: ₹{book.price}</p>
+                  <p>Rental Fee: ₹{book.rentalFee}</p>
+                  <p>Security Deposit: ₹{book.securityDeposit}</p>
 
-                {/* Counter */}
-                <div className={styles.counterWrap}>
-                  <button onClick={() => updateCart(book, -1)}>-</button>
-                  <span>{book.quantity}</span>
-                  <button onClick={() => updateCart(book, 1)}>+</button>
+                  {/* Counter */}
+                  <div className={styles.counterWrap}>
+                    <button onClick={() => updateCart(book, -1)}>-</button>
+                    <span>{book.quantity}</span>
+                    <button onClick={() => updateCart(book, 1)}>+</button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         )}
       </div>

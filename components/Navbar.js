@@ -29,23 +29,19 @@ const Navbar = () => {
     if (storedUser) {
       const user = JSON.parse(storedUser);
   
-      // 🧹 Clear cart from MongoDB
-      try {
-        await fetch("/api/cart/clear", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userId: user._id }),
-        });
-      } catch (error) {
-        console.error("Failed to clear cart on logout:", error);
-      }
+      // 🔄 Clear cart in DB without blocking logout
+      fetch("/api/cart/clear", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ userId: user._id }),
+      }).catch((error) => console.error("Failed to clear cart on logout:", error));
     }
   
-    // 🧼 Clear localStorage and redirect
+    // 🚀 Instantly remove user session and redirect
     localStorage.removeItem("user");
-    localStorage.removeItem("cart"); // Optional: also clear local cart for safety
+    localStorage.removeItem("cart"); // Optional: also clear local cart
     setUser(null);
     router.push("/login");
   };

@@ -1,68 +1,38 @@
 /* Add to existing styles */
 .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; }
-.modalContent { background: white; padding: 20px; border-radius: 4px; width: 400px; text-align: center; }
-.modalContent input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 4px; }
+.modalContent { background: #cfcfcf; padding: 20px; border-radius: 4px; width: 400px; text-align: center; }
+.modalContent input { width: 100%; padding: 11px 10px; margin: 10px 0; border: none; border-radius: 4px; }
 .modalContent button { padding: 10px 20px; margin: 5px; border: none; border-radius: 4px; cursor: pointer; }
-.modalContent button:first-of-type { background-color: #379a61; color: white; }
-.modalContent button:last-of-type { background-color: #ff4444; color: white; }
+.modalContent button:first-of-type { background-color: #379a61; color: #cfcfcf; }
+.modalContent button:last-of-type { background-color: #ff4444; color: #cfcfcf; }
 
   /* Books.module.css */
-.refreshButton { background-color: #379a61; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; width: 37px; justify-content: center; }
+.refreshButton { background-color: #379a61; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; width: 37px; justify-content: center; }
 .refreshButton:hover { background-color: #0056b3; }
 .main { padding: 15px 30px; margin: 0 auto; }
 .h1 { font-size: 2rem; margin-bottom: 20px; color: #f1f1f1; }
 .h2 { font-size: 1.5rem; margin: 20px 0; color: #f1f1f1; }
 .form { display: flex; flex-direction: column; gap: 10px; max-width: 400px; }
-.form input { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-.form button { padding: 10px; background-color: #379a61; color: white; border: none; border-radius: 4px; }
-.order { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
+.form input { padding: 10px; border: none; border-radius: 4px; }
+.form button { padding: 10px; background-color: #379a61; color: #cfcfcf; border: none; border-radius: 4px; }
+.order { border: none; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
 .bookGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
 .booksWrapper { margin-bottom: 1rem; }
-.booksWrapper>div { display: flex; flex-wrap: wrap; }
-.viewbookCard { padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease-in-out; width: calc((100% / 5) - 14px); margin-right: 14px; background-color: #323232; transform: scale(1); margin-top: 1rem; }
+.booksWrapper>div { display: flex; flex-wrap: wrap;}
+.viewbookCard { padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); width: calc((100% / 4) - 14px); margin-right: 14px; background-color: rgb(10, 10, 10); margin-top: 1rem; }
 .booksWrapper>div .viewbookCard:first-child { margin-left: 0; }
 .booksWrapper>div .viewbookCard:last-child { margin-right: 0; }
-.viewbookCard:hover { transform: scale(1.02); }
+.booksWrapper>div .viewbookCard:nth-child(4n) { margin-right: 0; }
 .viewbookCard h3 { margin: 0; color: #f1f1f1; }
 .viewbookCard p { margin: 0.5rem 0; color: #cfcfcf; }
-.searchInput { padding: 10px; width: 300px; border: 1px solid #ccc; border-radius: 4px; }
-.searchButton { padding: 11px 20px; background-color: #379a61; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 0 1rem; }
+.searchInput { padding: 11px 10px; width: 300px; border: none; border-radius: 4px; }
+.searchButton { padding: 11px 20px; background-color: #379a61; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin: 0 1rem; }
 .searchButton:hover { background-color: #0056b3; }
 .searchWrap { display: flex; margin: 1rem 0; }
-.cartButton {
-  margin-top: 0.5rem;
-  padding: 8px 12px;
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.cartButton:hover {
-  background-color: #0059c1;
-}
-.counterWrap {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
-}
-
-.counterWrap button {
-  padding: 0.3rem 0.7rem;
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.counterWrap span {
-  font-size: 1.1rem;
-  font-weight: 600;
-  min-width: 20px;
-  text-align: center;
-}
-
+.counterWrap { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+.cartButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin: 0; }
+.cartButton:hover { background-color: #1e1e1e; }
+.cartButton { margin: 0; }
+.counterWrap button { width: 30px; height: 30px; border-radius: 4px; border: none; background-color: #000; color: #cfcfcf; display: flex; justify-content: center; align-items: center; cursor: pointer; line-height: 30px; }
+.counterWrap button:hover { background-color: #1e1e1e; }
+.counterWrap span { font-size: 1.1rem; font-weight: 600; min-width: 20px; text-align: center; }
