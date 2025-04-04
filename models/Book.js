@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const bookSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -8,7 +8,11 @@ const bookSchema = new mongoose.Schema({
   securityDeposit: { type: Number, required: true },
   stock: { type: Number, required: true, default: 0 },
   available: { type: Boolean, default: true },
-  vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendor', required: true }, // ✅ Added vendor reference
+  vendor: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Vendor",
+    required: true,
+  }, // ✅ Added vendor reference
 });
 
-export default mongoose.models.Book || mongoose.model('Book', bookSchema);
+export default mongoose.models.Book || mongoose.model("Book", bookSchema);

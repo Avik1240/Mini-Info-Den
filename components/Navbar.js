@@ -25,10 +25,10 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     const storedUser = localStorage.getItem("user");
-  
+
     if (storedUser) {
       const user = JSON.parse(storedUser);
-  
+
       // 🔄 Clear cart in DB without blocking logout
       fetch("/api/cart/clear", {
         method: "POST",
@@ -36,16 +36,17 @@ const Navbar = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ userId: user._id }),
-      }).catch((error) => console.error("Failed to clear cart on logout:", error));
+      }).catch((error) =>
+        console.error("Failed to clear cart on logout:", error)
+      );
     }
-  
+
     // 🚀 Instantly remove user session and redirect
     localStorage.removeItem("user");
     localStorage.removeItem("cart"); // Optional: also clear local cart
     setUser(null);
     router.push("/login");
   };
-  
 
   return (
     <nav className={styles.navbar}>

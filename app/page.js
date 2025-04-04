@@ -14,21 +14,21 @@ export default function Home() {
     const validateSession = async () => {
       const storedUser = localStorage.getItem("user");
       if (!storedUser) return router.push("/login");
-  
+
       const user = JSON.parse(storedUser);
-  
+
       try {
         // Fetch server start time
         const serverRes = await fetch("/api/session/server-time");
         const serverData = await serverRes.json();
-  
+
         if (!serverRes.ok) throw new Error("Failed to fetch server time");
-  
+
         if (new Date(user.loginTime) < new Date(serverData.serverStartTime)) {
           localStorage.removeItem("user");
           return router.push("/login");
         }
-  
+
         setVendorId(user.vendorId || null);
       } catch (error) {
         console.error("Session validation failed:", error);
@@ -36,11 +36,9 @@ export default function Home() {
         router.push("/login");
       }
     };
-  
+
     validateSession();
   }, []);
-  
-  
 
   const handleButtonClick = () => {
     router.push(vendorId ? "/addBook" : "/books");
@@ -53,7 +51,10 @@ export default function Home() {
         <section className={styles.welcome}>
           <h1>Welcome to Info Den</h1>
 
-          <button onClick={handleButtonClick} className={styles.viewBooksButton}>
+          <button
+            onClick={handleButtonClick}
+            className={styles.viewBooksButton}
+          >
             {vendorId ? "Add Book" : "View All Books"}
           </button>
         </section>

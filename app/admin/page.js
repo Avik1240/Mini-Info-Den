@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation"; // ✅ Read query from URL
 import styles from "../../styles/Admin.module.css";
 import Navbar from "../../components/Navbar";
-import { Trash2 , RefreshCcw} from "lucide-react"; // ✅ Import delete icon
+import { Trash2, RefreshCcw } from "lucide-react"; // ✅ Import delete icon
 
 export default function Admin() {
   const [books, setBooks] = useState([]);
@@ -116,8 +116,12 @@ export default function Admin() {
                   Search
                 </button>
               </form>
-              <button onClick={fetchBooks} className={styles.refreshButton} title="Refresh Books">
-              <RefreshCcw size={20} />
+              <button
+                onClick={fetchBooks}
+                className={styles.refreshButton}
+                title="Refresh Books"
+              >
+                <RefreshCcw size={20} />
               </button>
             </div>
 

@@ -17,7 +17,9 @@ export default async function handler(req, res) {
   const { userId, role, loginTime } = req.body;
 
   if (!userId || !role || !loginTime) {
-    return res.status(400).json({ valid: false, message: "Missing credentials" });
+    return res
+      .status(400)
+      .json({ valid: false, message: "Missing credentials" });
   }
 
   try {

@@ -31,11 +31,10 @@ export default async function handler(req, res) {
     };
 
     // ✅ if cart is empty, update with empty items array
-    await Cart.findOneAndUpdate(
-      { userId: user._id },
-      updatePayload,
-      { upsert: true, new: true }
-    );
+    await Cart.findOneAndUpdate({ userId: user._id }, updatePayload, {
+      upsert: true,
+      new: true,
+    });
 
     return res.status(200).json({ message: "Cart updated successfully" });
   } catch (error) {

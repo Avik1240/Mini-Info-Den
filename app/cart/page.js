@@ -41,16 +41,16 @@ export default function CartPage() {
   const syncCartToDB = async (updatedCart) => {
     const storedUser = localStorage.getItem("user");
     if (!storedUser) return;
-  
+
     const user = JSON.parse(storedUser);
-  
+
     try {
       await fetch("/api/cart/update", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: user.email, // ✅ use email if your API expects it
-          cart: updatedCart.map(item => ({
+          cart: updatedCart.map((item) => ({
             bookId: item.bookId,
             quantity: item.quantity,
           })),
@@ -60,19 +60,17 @@ export default function CartPage() {
       console.error("Error syncing cart to MongoDB:", err);
     }
   };
-  
-  
 
   // ✅ Add/remove item in cart and sync state + DB
   const updateCart = (book, quantityChange) => {
     let existingCart = [...cart];
     const bookId = book._id || book.bookId;
-  
-    const index = existingCart.findIndex(item => item.bookId === bookId);
-  
+
+    const index = existingCart.findIndex((item) => item.bookId === bookId);
+
     if (index !== -1) {
       existingCart[index].quantity += quantityChange;
-  
+
       if (existingCart[index].quantity <= 0) {
         existingCart.splice(index, 1);
       }
@@ -83,10 +81,10 @@ export default function CartPage() {
         vendorId: book.vendorId,
       });
     }
-  
+
     setCart(existingCart);
     localStorage.setItem("cart", JSON.stringify(existingCart));
-  
+
     // ✅ Send clean data to backend
     syncCartToDB(existingCart);
   };
@@ -110,7 +108,9 @@ export default function CartPage() {
           <div className={styles.cartEmpty}>
             <h1>Feels so Light !!</h1>
             <p>Your cart is empty.</p>
-            <p className={styles.cartExplore}>Explore to grab the knowledge .....</p>
+            <p className={styles.cartExplore}>
+              Explore to grab the knowledge .....
+            </p>
             <button
               onClick={handleButtonClick}
               className={styles.viewBooksButton}

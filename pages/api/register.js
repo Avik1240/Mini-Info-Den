@@ -1,11 +1,11 @@
-import dbConnect from '../../lib/dbConnect';
-import User from '../../models/User';
-import Vendor from '../../models/Vendor'; // ✅ Import Vendor model
-import bcrypt from 'bcryptjs';
+import dbConnect from "../../lib/dbConnect";
+import User from "../../models/User";
+import Vendor from "../../models/Vendor"; // ✅ Import Vendor model
+import bcrypt from "bcryptjs";
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ message: "Method not allowed" });
   }
 
   await dbConnect();
@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     const existingVendor = await Vendor.findOne({ email });
 
     if (existingUser || existingVendor) {
-      return res.status(400).json({ message: 'User or Vendor already exists' });
+      return res.status(400).json({ message: "User or Vendor already exists" });
     }
 
     // Hash password
@@ -35,8 +35,13 @@ export default async function handler(req, res) {
       await vendor.save();
 
       res.status(201).json({
-        message: 'Vendor registered successfully',
-        user: { _id: vendor._id, email: vendor.email, role: 'vendor', vendorId: vendor._id },
+        message: "Vendor registered successfully",
+        user: {
+          _id: vendor._id,
+          email: vendor.email,
+          role: "vendor",
+          vendorId: vendor._id,
+        },
       });
     } else {
       // ✅ Register as User
@@ -44,12 +49,12 @@ export default async function handler(req, res) {
       await user.save();
 
       res.status(201).json({
-        message: 'User registered successfully',
-        user: { _id: user._id, email: user.email, role: 'user' },
+        message: "User registered successfully",
+        user: { _id: user._id, email: user.email, role: "user" },
       });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: "Server error" });
   }
 }

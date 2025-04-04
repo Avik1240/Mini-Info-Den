@@ -11,7 +11,8 @@ const vendorSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  password: { // ✅ Ensure password is correctly defined
+  password: {
+    // ✅ Ensure password is correctly defined
     type: String,
     required: true,
   },
