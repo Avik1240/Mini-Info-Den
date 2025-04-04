@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const [vendorId, setVendorId] = useState(null);
   const router = useRouter();
 

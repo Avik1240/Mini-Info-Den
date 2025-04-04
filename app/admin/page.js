@@ -8,7 +8,7 @@ import { Trash2, RefreshCcw } from "lucide-react"; // ✅ Import delete icon
 
 export default function Admin() {
   const [books, setBooks] = useState([]);
-  const [orders, setOrders] = useState([]);
+  // const [orders, setOrders] = useState([]);
   const [vendorId, setVendorId] = useState(null);
   const [loading, setLoading] = useState(false); // ✅ Added loading state
   const [searchQuery, setSearchQuery] = useState(""); // ✅ Search state
