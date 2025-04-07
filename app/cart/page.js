@@ -124,7 +124,7 @@ export default function CartPage() {
             <div className={styles.cartList}>
               {cart.map((book) => (
                 <div key={book._id} className={styles.cartItem}>
-                  <h2>{book.title}</h2>
+                  <h2 className={styles.title}>{book.title}</h2>
                   <p>Author: {book.author}</p>
                   <p>Price: ₹{book.price}</p>
                   <p>Rental Fee: ₹{book.rentalFee}</p>

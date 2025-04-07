@@ -161,12 +161,12 @@ export default function Books() {
 
         <div className={styles.booksWrapper}>
           {loading ? (
-            <p>Loading...</p>
+            <p className={styles.loading}>Loading...</p>
           ) : books.length > 0 ? (
             <div className={styles.bookList}>
               {books.map((book) => (
                 <div key={book._id} className={styles.viewbookCard}>
-                  <h2>{book.title}</h2>
+                  <h2 className={styles.title}>{book.title}</h2>
                   <p>Author: {book.author}</p>
                   <p>Price: ₹{book.price}</p>
                   <p>Rental Fee: ₹{book.rentalFee}</p>

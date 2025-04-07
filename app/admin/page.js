@@ -128,11 +128,11 @@ export default function Admin() {
             <div className={styles.booksWrapper}>
               <div className={styles.booksGrid}>
                 {loading ? (
-                  <p>Loading books...</p>
+                  <p className={styles.loading}>Loading...</p>
                 ) : books.length > 0 ? (
                   books.map((book) => (
                     <div key={book._id} className={styles.bookCard}>
-                      <h2>{book.title}</h2>
+                      <h2 className={styles.title}>{book.title}</h2>
                       <p>Author: {book.author}</p>
                       <p>Price: ₹{book.price}</p>
                       <p>Rental Fee: ₹{book.rentalFee}/day</p>
