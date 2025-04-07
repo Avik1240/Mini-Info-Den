@@ -6,6 +6,7 @@ This is my file structure for your reference,
 
 app/
   admin/page.js
+  cart/page.js
   books/page.js
   login/page.js
   vendor/page.js
@@ -21,7 +22,7 @@ components/
 lib/dbConnect.js
 
 models/
-  Book.js, Order.js, Vendor.js, User.js
+  Book.js, Order.js, Vendor.js, User.js, Cart.js
 
 page/api/
   orders/all.js
@@ -31,10 +32,15 @@ page/api/
   orders.js
   register.js
   vendor.js
+  cart/get.js
+  cart/update.js
+  cart/clear.js
+  session/server-time.js
+  session/session.js
 
 styles/
  Admin.module.css, LoginForm.module.css, Books.module.css, Home.module.css
- Navbar.module.css, Vendor.module.css
+ Navbar.module.css, Vendor.module.css, Cart.module.css
 
 This is how my file structure looks like.
 I want some help in this so thoroughly go through this structure and let me know when you're ready for the same.

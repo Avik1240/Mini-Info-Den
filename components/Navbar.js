@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "../styles/Navbar.module.css";
-
+// import { Button } from "@/components/ui/button";
 const Navbar = () => {
   const [user, setUser] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -50,11 +50,12 @@ const Navbar = () => {
 
   return (
     <nav className={styles.navbar}>
+      
       <div className={styles.logo}>
-        <Link href="/">Info Den</Link>
+        <Link href="/" >Info Den</Link>
       </div>
       <div className={styles.navLinks}>
-        <Link href="/">Home</Link>
+        <Link href="/" className="">Home</Link>
 
         {/* ✅ Show Admin Link Only for Vendors */}
         {user?.vendorId && <Link href="/admin">Admin</Link>}

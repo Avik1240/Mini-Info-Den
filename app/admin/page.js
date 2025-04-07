@@ -155,7 +155,7 @@ export default function Admin() {
           </section>
         )}
 
-        <section>
+        {/* <section>
           <h2>Orders</h2>
           {orders.map((order) => (
             <div key={order._id} className={styles.order}>
@@ -165,7 +165,7 @@ export default function Admin() {
               <p>Address: {order.deliveryAddress}</p>
             </div>
           ))}
-        </section>
+        </section> */}
       </main>
     </div>
   );

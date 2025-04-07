@@ -155,7 +155,7 @@ export default function AddBookForm() {
                 required
               />
             </div>
-            <button type="submit">Add Book</button>
+            <button type="submit" className={styles.addBook}>Add Book</button>
           </form>
         </section>
       </main>

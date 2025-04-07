@@ -4,12 +4,12 @@
 .navLinks { display: flex; gap: 0; align-items: center; }
 .navLinks a { color: #fff; text-decoration: none; font-size: 1rem; padding: 20px 8px; background: transparent; border-radius: 0px; box-sizing: border-box; border-bottom: 4px solid transparent; min-width: 85px; text-align: center; }
 .navLinks a:hover { border-bottom: 4px solid #379a61; }
-.logoutButton, .loginButton, .userButton { background-color: transparent; padding: 20px 8px; border: none; min-width: 85px; cursor: pointer; text-align: center; font-size: 1rem; box-sizing: border-box; border-bottom: 4px solid transparent; }
+.logoutButton, .loginButton, .userButton { background-color: transparent; padding: 20px 8px; border: none; min-width: 85px; cursor: pointer; text-align: center; font-size: 1rem; box-sizing: border-box; border-bottom: 4px solid transparent; color: #fff;}
 .logoutButton:hover, .loginButton:hover, .userButton:hover { border-bottom: 4px solid #379a61; }
 .dropdown { position: relative; }
 .dropdownContent { position: absolute; top: 110%; right: 0; }
 .dropdownContent button { background-color: #000; border-bottom-color: #000; border-radius: 4px; padding: 10px 8px; min-width: 85px; }
 .dropdownContent button:hover { background-color: #379a61; border-bottom-color: #379a61; }
-.cartLink { font-weight: 500; }
+/* .cartLink { font-weight: 500; } */
 .cartLink { position: relative; text-decoration: none; color: white; font-size: 16px; }
 .badge { position: absolute; top: 5px; right: 5px; background-color: red; color: #fff; font-size: 10px; font-weight: bold; border-radius: 50%; width: 15px; height: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 5px #0000004d; line-height: 15px; }
