@@ -165,9 +165,9 @@ export default function CartPage() {
 
                     {/* Counter */}
                     <div className={styles.counterWrap}>
-                      <button onClick={() => updateCart(book, -1)}>-</button>
+                      <button onClick={() => updateCart(book, -1)} title="Remove Book">-</button>
                       <span>{book.quantity}</span>
-                      <button onClick={() => updateCart(book, 1)}>+</button>
+                      <button onClick={() => updateCart(book, 1)} title="Add Book">+</button>
                     </div>
                   </div>
                 ))}
