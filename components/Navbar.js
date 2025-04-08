@@ -50,12 +50,13 @@ const Navbar = () => {
 
   return (
     <nav className={styles.navbar}>
-      
       <div className={styles.logo}>
-        <Link href="/" >Info Den</Link>
+        <Link href="/">Info Den</Link>
       </div>
       <div className={styles.navLinks}>
-        <Link href="/" className="">Home</Link>
+        <Link href="/" className="">
+          Home
+        </Link>
 
         {/* ✅ Show Admin Link Only for Vendors */}
         {user?.vendorId && <Link href="/admin">Admin</Link>}
