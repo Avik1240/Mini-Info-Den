@@ -8,6 +8,38 @@ export default function CartPage() {
   const [user, setUser] = useState(null);
   const [cart, setCart] = useState([]);
   const router = useRouter();
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [gst, setGst] = useState(0);
+  const [finalAmount, setFinalAmount] = useState(0);
+  const [totalBooks, setTotalBooks] = useState(0);
+
+  // 💡 Recalculate totals when cart updates
+  useEffect(() => {
+    if (!cart || cart.length === 0) {
+      setTotalPrice(0);
+      setGst(0);
+      setFinalAmount(0);
+      setTotalBooks(0);
+      return;
+    }
+
+    let total = 0;
+    let bookCount = 0;
+
+    cart.forEach((item) => {
+      total += (item.price || 0) * (item.quantity || 1);
+      bookCount += item.quantity || 1;
+    });
+
+    const calculatedGst = total * 0.18;
+    const grandTotal = total + calculatedGst;
+
+    setTotalPrice(total);
+    setGst(calculatedGst);
+    setFinalAmount(grandTotal);
+    setTotalBooks(bookCount);
+  }, [cart]);
+
   // 🔄 Fetch cart from MongoDB
   const fetchUserCart = async (userId) => {
     try {
@@ -121,23 +153,45 @@ export default function CartPage() {
         ) : (
           <div>
             <h1>Your Cart</h1>
-            <div className={styles.cartList}>
-              {cart.map((book) => (
-                <div key={book._id} className={styles.cartItem}>
-                  <h2 className={styles.title}>{book.title}</h2>
-                  <p>Author: {book.author}</p>
-                  <p>Price: ₹{book.price}</p>
-                  <p>Rental Fee: ₹{book.rentalFee}</p>
-                  <p>Security Deposit: ₹{book.securityDeposit}</p>
+            <div className={styles.cartWrap}>
+              <div className={styles.cartList}>
+                {cart.map((book) => (
+                  <div key={book._id} className={styles.cartItem}>
+                    <h2 className={styles.title}>{book.title}</h2>
+                    <p>Author: {book.author}</p>
+                    <p>Price: ₹{book.price}</p>
+                    <p>Rental Fee: ₹{book.rentalFee}</p>
+                    <p>Security Deposit: ₹{book.securityDeposit}</p>
 
-                  {/* Counter */}
-                  <div className={styles.counterWrap}>
-                    <button onClick={() => updateCart(book, -1)}>-</button>
-                    <span>{book.quantity}</span>
-                    <button onClick={() => updateCart(book, 1)}>+</button>
+                    {/* Counter */}
+                    <div className={styles.counterWrap}>
+                      <button onClick={() => updateCart(book, -1)}>-</button>
+                      <span>{book.quantity}</span>
+                      <button onClick={() => updateCart(book, 1)}>+</button>
+                    </div>
                   </div>
+                ))}
+              </div>
+              <div className={styles.summaryBox}>
+                <h3>Cart Summary</h3>
+                <div>
+                  <p>
+                    Total Books: <span>{totalBooks}</span>
+                  </p>
+                  <p>
+                    Total Price: ₹<span>{totalPrice.toFixed(2)}</span>
+                  </p>
+                  <p>
+                    GST (18%): ₹<span>{gst.toFixed(2)}</span>
+                  </p>
+                  <p>
+                    Final Amount: ₹<span>{finalAmount.toFixed(2)}</span>
+                  </p>
                 </div>
-              ))}
+                <button className={styles.buyNowButton} title="Buy Now">
+                  Buy Now
+                </button>
+              </div>
             </div>
           </div>
         )}
