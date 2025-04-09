@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
-import styles from "../../styles/Orders.module.css"; // Create this CSS file
+import styles from "../../styles/Orders.module.css";
 import { useRouter } from "next/navigation";
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
@@ -38,11 +38,11 @@ export default function OrdersPage() {
       <div className={styles.container}>
         {orders.length === 0 ? (
           <div className={styles.orderEmpty}>
-            <h1>Feels so Light !!</h1>
-            <p>You haven't placed any orders yet.</p>
+            <h1>Low on knowledge ??</h1>
             <p className={styles.orderExplore}>
-              Explore to grab the knowledge .....
+              Order to grab some .....
             </p>
+            <p className={styles.orderText}>You haven't placed any orders yet.</p>
             <button
               onClick={handleButtonClick}
               className={styles.viewBooksButton}

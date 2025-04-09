@@ -2,31 +2,42 @@
 .h1 { font-size: 2rem; margin-bottom: 16px; color: #f1f1f1; }
 .h2 { font-size: 1.5rem; margin: 16px 0; color: #f1f1f1; }
 .form { display: flex; flex-wrap: wrap; margin-top: -1rem; }
-.formInputWrap{ width:calc((100% / 3) - 16px);margin-right: 1rem;margin-top: 1rem; }
-.formInputWrap label{margin-bottom: .5rem; display: block;}
-.form input { padding: 11px 10px; border: none; border-radius: 4px; width: 100%;background-color:  rgb(10, 10, 10);}
-.form button { padding: 11px 16px; background-color: #379a61; color: #fff; border: none; border-radius: 4px;text-align: center; width: 100%; max-width: 100px; cursor: pointer;margin-top: 1rem;}
+.formInputWrap { width: calc((100% / 3) - 14px); margin-right: 14px; margin-top: 1rem; }
+.formInputWrap label { margin-bottom: .5rem; display: block; }
+.form input { padding: 11px 10px; border: none; border-radius: 4px; width: 100%; background-color: rgb(10, 10, 10); }
+.form button { padding: 11px 16px; background-color: #379a61; color: #fff; border: none; border-radius: 4px; text-align: center; width: 100%; max-width: 100px; cursor: pointer; margin-top: 1rem; }
 .form button:hover { background-color: #0056b3; }
 .order { border: none; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
 .bookGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
 .booksWrapper { margin-bottom: 1rem; }
 .booksWrapper>div { display: flex; flex-wrap: wrap; }
-.bookCard { padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); width: calc((100% / 4) - 14px); margin-right: 14px; background-color:  rgb(10, 10, 10); position: relative; margin-top: 1rem; }
+.bookCard { padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); width: calc((100% / 4) - 14px); margin-right: 14px; background-color: rgb(10, 10, 10); position: relative; margin-top: 1rem; }
 .booksWrapper>div .bookCard:first-child { margin-left: 0; }
 .booksWrapper>div .bookCard:last-child { margin-right: 0; }
 .booksWrapper>div .bookCard:nth-child(4n) { margin-right: 0; }
 .bookCard h3 { margin: 0; color: #f1f1f1; }
 .bookCard p { margin: 0.5rem 0; color: #cfcfcf; }
-.deleteButton { background: none; border: none; cursor: pointer; position: absolute; top: 16px; right: 16px; }
-.deleteButton svg { stroke: #f54141;}
-.deleteButton:hover { opacity: 0.7; }
-.searchInput { padding: 11px 10px; width: 300px; border: 1px solid #686868; border-radius: 4px; background-color: #0a0a0a;}
-.searchButton { padding: 11px 20px; background-color: #379a61; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin:0 1rem;}
+.searchInput { padding: 11px 10px; width: 300px; border: 1px solid #686868; border-radius: 4px; background-color: #0a0a0a; }
+.searchButton { padding: 11px 20px; background-color: #379a61; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin: 0 1rem; }
 .searchButton:hover { background-color: #0056b3; }
-.searchWrap{display: flex;margin: 1rem 0;}
-.refreshButton {   background-color: #379a61; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex;align-items: center;width: 48px;justify-content: center;}
+.searchWrap { display: flex; margin: 1rem 0; }
+.refreshButton { background-color: #379a61; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; width: 48px; justify-content: center; }
 .refreshButton:hover { background-color: #0056b3; }
-.mandatory{color: #f54141;}
-.addBook{max-width: 200px !important;}
-.title { font-size: 1.5rem; color: #f1f1f1; font-weight: 600;}
-.loading{ display: flex; justify-content: center; align-items: center;color: #5e5e5e;font-size: 40px;font-weight: 500; width: 100%;}
+.mandatory { color: #f54141; }
+.addBook { max-width: 200px !important; }
+.title { font-size: 1.5rem; color: #f1f1f1; font-weight: 600;padding-right: 20px;position: relative; }
+.deleteButton { background: none; border: none; cursor: pointer; position: absolute; top: 7px; right: 0;line-height: 1; }
+.deleteButton svg { stroke: #f54141; }
+.deleteButton:hover { opacity: 0.7; }
+.loading { display: flex; justify-content: center; align-items: center; color: #5e5e5e; font-size: 40px; font-weight: 500; width: 100%; }
+@media (max-width:1399px) {
+	.bookCard { width: calc((100% / 3) - 14px); }
+	.booksWrapper>div .bookCard:nth-child(4n) { margin-right: 14px; }
+	.booksWrapper>div .bookCard:nth-child(3n) { margin-right: 0; }
+}
+@media (max-width:991px) {
+	.bookCard { width: calc((100% / 2) - 14px); }
+	.booksWrapper>div .bookCard:nth-child(3n) { margin-right: 14px; }
+	.booksWrapper>div .bookCard:nth-child(2n) { margin-right: 0; }
+    .formInputWrap { width: calc((100% / 2) - 14px);}
+}

@@ -132,20 +132,22 @@ export default function Admin() {
                 ) : books.length > 0 ? (
                   books.map((book) => (
                     <div key={book._id} className={styles.bookCard}>
-                      <h2 className={styles.title}>{book.title}</h2>
+                      <h2 className={styles.title}>
+                        {book.title}
+                        <button
+                          className={styles.deleteButton}
+                          onClick={() => handleDelete(book._id)}
+                          disabled={loading} // ✅ Disable button while deleting
+                          title="Delete"
+                        >
+                          <Trash2 size={20} color={loading ? "gray" : "red"} />
+                        </button>
+                      </h2>
                       <p>Author: {book.author}</p>
                       <p>Price: ₹{book.price}</p>
                       <p>Rental Fee: ₹{book.rentalFee}/day</p>
                       <p>Security Deposit: ₹{book.securityDeposit}</p>
                       <p>Stock: {book.stock}</p>
-                      <button
-                        className={styles.deleteButton}
-                        onClick={() => handleDelete(book._id)}
-                        disabled={loading} // ✅ Disable button while deleting
-                        title="Refresh Books"
-                      >
-                        <Trash2 size={20} color={loading ? "gray" : "red"} />
-                      </button>
                     </div>
                   ))
                 ) : (
