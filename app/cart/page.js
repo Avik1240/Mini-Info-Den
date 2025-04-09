@@ -57,16 +57,28 @@ export default function CartPage() {
   // ✅ Load user and fetch cart
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
+    const cartClearedFlag = localStorage.getItem("cartCleared");
+  
     if (storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
         setUser(parsedUser);
-        fetchUserCart(parsedUser._id);
+  
+        if (cartClearedFlag === "true") {
+          setCart([]);
+          localStorage.removeItem("cart");
+          localStorage.removeItem("cartCleared");
+        } else {
+          fetchUserCart(parsedUser._id);
+        }
       } catch (err) {
         console.error("Invalid user:", err);
       }
     }
   }, []);
+  
+  
+  
 
   // 🛒 Update cart (local + MongoDB)
   // ✅ Sync updated cart with MongoDB
@@ -165,9 +177,19 @@ export default function CartPage() {
 
                     {/* Counter */}
                     <div className={styles.counterWrap}>
-                      <button onClick={() => updateCart(book, -1)} title="Remove Book">-</button>
+                      <button
+                        onClick={() => updateCart(book, -1)}
+                        title="Remove Book"
+                      >
+                        -
+                      </button>
                       <span>{book.quantity}</span>
-                      <button onClick={() => updateCart(book, 1)} title="Add Book">+</button>
+                      <button
+                        onClick={() => updateCart(book, 1)}
+                        title="Add Book"
+                      >
+                        +
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -188,7 +210,11 @@ export default function CartPage() {
                     Final Amount: <span>₹ {finalAmount.toFixed(2)}</span>
                   </p>
                 </div>
-                <button className={styles.buyNowButton} title="Buy Now">
+                <button
+                  onClick={() => router.push("/checkout")}
+                  className={styles.buyNowButton}
+                  title="Buy Now"
+                >
                   Buy Now
                 </button>
               </div>

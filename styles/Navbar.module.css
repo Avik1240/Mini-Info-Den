@@ -2,7 +2,7 @@
 .logo { padding: 15px 0; }
 .logo a { font-size: 1.2rem; font-weight: bold; color: #cfcfcf; text-decoration: none; }
 .navLinks { display: flex; gap: 0; align-items: center; }
-.navLinks a { color: #fff; text-decoration: none; font-size: 1rem; padding: 14px 8px; background: transparent; border-radius: 0px; box-sizing: border-box; border-bottom: 4px solid transparent; min-width: 85px; text-align: center; }
+.navLinks a { color: #fff; text-decoration: none; font-size: 1rem; padding: 14px 8px; background: transparent; border-radius: 0px; box-sizing: border-box; border-bottom: 4px solid transparent; min-width: auto; text-align: center; }
 .navLinks a:hover { border-bottom: 4px solid #379a61; }
 .logoutButton, .loginButton, .userButton { background-color: transparent; padding: 14px 8px; border: none; cursor: pointer; text-align: center; font-size: 1rem; box-sizing: border-box; border-bottom: 4px solid transparent; color: #fff;}
 .logoutButton:hover, .loginButton:hover, .userButton:hover { border-bottom: 4px solid #379a61; }

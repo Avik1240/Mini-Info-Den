@@ -1,5 +1,6 @@
 import connectDB from "@/lib/dbConnect";
 import Cart from "@/models/Cart";
+import mongoose from "mongoose"; // ✅ Needed for ObjectId
 
 export async function POST(req) {
   await connectDB();
@@ -12,7 +13,13 @@ export async function POST(req) {
       });
     }
 
-    await Cart.findOneAndDelete({ userId });
+    const objectId = new mongoose.Types.ObjectId(userId); // ✅ Convert string to ObjectId
+
+    const deleted = await Cart.findOneAndDelete({ userId: objectId });
+
+    if (!deleted) {
+      console.log("No cart found for userId:", userId);
+    }
 
     return new Response(JSON.stringify({ message: "Cart cleared" }), {
       status: 200,

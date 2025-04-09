@@ -67,6 +67,12 @@ const Navbar = () => {
               Cart
             </Link>
           )}
+        {user &&
+          !user.vendorId && ( // ✅ Show Cart for users only
+            <Link href="/orders" className={styles.cartLink}>
+            Your Orders
+          </Link>
+          )}
 
         {user ? (
           <div className={styles.dropdown}>
