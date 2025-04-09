@@ -179,13 +179,13 @@ export default function CartPage() {
                     Total Books: <span>{totalBooks}</span>
                   </p>
                   <p>
-                    Total Price: ₹<span>{totalPrice.toFixed(2)}</span>
+                    Total Price: <span>₹ {totalPrice.toFixed(2)}</span>
                   </p>
                   <p>
-                    GST (18%): ₹<span>{gst.toFixed(2)}</span>
+                    GST (18%): <span>₹ {gst.toFixed(2)}</span>
                   </p>
                   <p>
-                    Final Amount: ₹<span>{finalAmount.toFixed(2)}</span>
+                    Final Amount: <span>₹ {finalAmount.toFixed(2)}</span>
                   </p>
                 </div>
                 <button className={styles.buyNowButton} title="Buy Now">

@@ -142,6 +142,7 @@ export default function Admin() {
                         className={styles.deleteButton}
                         onClick={() => handleDelete(book._id)}
                         disabled={loading} // ✅ Disable button while deleting
+                        title="Refresh Books"
                       >
                         <Trash2 size={20} color={loading ? "gray" : "red"} />
                       </button>
