@@ -1,15 +1,30 @@
-.navbar { display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background-color: rgb(10, 10, 10); color: #cfcfcf; max-height: 58px;}
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background-color: rgb(10, 10, 10); color: #cfcfcf; max-height: 58px; position: relative; }
+.hamburger { display: none; font-size: 2rem; background: none; border: none; color: white; cursor: pointer; }
 .logo { padding: 15px 0; }
 .logo a { font-size: 1.2rem; font-weight: bold; color: #cfcfcf; text-decoration: none; }
 .navLinks { display: flex; gap: 0; align-items: center; }
-.navLinks a { color: #fff; text-decoration: none; font-size: 1rem; padding: 14px 14px; background: transparent; border-radius: 0px; box-sizing: border-box; border-bottom: 4px solid transparent; min-width: auto; text-align: center; }
+.navLinks a { color: #fff; text-decoration: none; font-size: 1rem; padding: 14px 14px; background: transparent; border-radius: 0px; box-sizing: border-box; border-bottom: 4px solid transparent; min-width: auto; text-align: center; font-weight: 500;}
 .navLinks a:hover { border-bottom: 4px solid #379a61; }
-.logoutButton, .loginButton, .userButton { background-color: transparent; padding: 14px 8px; border: none; cursor: pointer; text-align: center; font-size: 1rem; box-sizing: border-box; border-bottom: 4px solid transparent; color: #fff;}
+.logoutButton, .loginButton, .userButton { background-color: transparent; padding: 14px 8px; border: none; cursor: pointer; text-align: center; font-size: 1rem; box-sizing: border-box; border-bottom: 4px solid transparent; color: #fff; }
 .logoutButton:hover, .loginButton:hover, .userButton:hover { border-bottom: 4px solid #379a61; }
-.dropdown { position: relative; }
-.dropdownContent { position: absolute; top: 110%; right: 0; line-height: 1;width: 100%;}
-.dropdownContent button { background-color: #000; border-bottom-color: #000; border-radius: 4px; padding: 10px 8px; line-height: 1; width: 100%;}
-.dropdownContent button:hover { background-color: #379a61; border-bottom-color: #379a61; }
-/* .cartLink { font-weight: 500; } */
+.userButton{padding: 14px 20px 14px 8px;}
+.userButton,.dropdown{position: relative;transition: linear .2s ease;}
+.userButton:after{position: absolute;top: 47%;right: 5px;transform: translateY(-50%);content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10.121' height='5.811' viewBox='0 0 10.121 5.811'%3E%3Cpath id='Path_37881' data-name='Path 37881' d='M2580,108l4,4,4-4' transform='translate(-2578.94 -106.939)' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'/%3E%3C/svg%3E");line-height: 1;}
+.dropdownContent { position: absolute; top: 110%; right: 0; line-height: 1; width: 100%; }
+.dropdownContent button { background-color: #000; border-bottom-color: #000; border-radius: 4px; padding: 10px 8px; line-height: 1; width: 100%; font-weight: 500;}
+.dropdownContent button:hover { background-color: #379a61; border-bottom-color: #379a61; color: #000;}
 .cartLink { position: relative; text-decoration: none; color: white; font-size: 16px; }
 .badge { position: absolute; top: 5px; right: 5px; background-color: red; color: #fff; font-size: 10px; font-weight: bold; border-radius: 50%; width: 15px; height: 15px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 5px #0000004d; line-height: 15px; }
+@media (max-width:767px) {
+	.hamburger { display: block; }
+	.navLinks { display: none; position: absolute; top: 100%; right: 0; background-color: #000; flex-direction: column; padding: .5rem 1rem; width: 100%; z-index: 1000; border-radius: 0 0 0 10px; max-width: 200px;}
+	.navLinks.navOpen { display: flex; }
+	.navLinks a { padding: 0.5rem 0; width: 100%; max-width: 300px;}
+	.dropdown { width: 100%; max-width: 300px;}
+	.dropdownContent { position: static; background-color: transparent; padding-top: 0.5rem; }
+	.logoutButton, .loginButton, .userButton { width: 100%; }
+    .userButton{padding: 8px 20px 8px 8px;}
+	.dropdownContent button { background-color: #222; border-bottom-color: #222; border-radius: 4px; padding: 10px 8px; line-height: 1; width: 100%; }
+    .navbar{padding: 0px 20px;}
+    .userButton:after{top: 44%;}
+}

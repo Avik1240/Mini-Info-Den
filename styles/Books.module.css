@@ -7,8 +7,8 @@
 .modalContent button:last-of-type { background-color: #ff4444; color: #cfcfcf; }
 
   /* Books.module.css */
-.refreshButton { background-color: #379a61; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; width: 48px; justify-content: center; }
-.refreshButton:hover { background-color: #0056b3; }
+.refreshButton { background-color: #000; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; width: 48px; justify-content: center; }
+.refreshButton:hover { background-color: #379a61; color: #000; }
 .main { padding: 15px 30px; margin: 0 auto; }
 .h1 { font-size: 2rem !important; margin-bottom: 20px; color: #f1f1f1; }
 .h2 { font-size: 1.5rem; margin: 20px 0; color: #f1f1f1; }
@@ -27,14 +27,14 @@
 .viewbookCard h3 { margin: 0; color: #f1f1f1; }
 .viewbookCard p { margin: 0.5rem 0; color: #cfcfcf; }
 .searchInput { padding: 11px 10px; width: 300px; border: 1px solid #686868; border-radius: 4px; background-color: #0a0a0a;min-height: 45px;}
-.searchButton { padding: 12px 20px; background-color: #379a61; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin: 0 1rem; }
-.searchButton:hover { background-color: #0056b3; }
+.searchButton { padding: 12px 20px; background-color: #000; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin: 0 1rem;font-weight: 500; }
+.searchButton:hover { background-color: #379a61;color: #000; }
 .searchWrap { display: flex; margin: 1rem 0; }
 .counterWrap { display: flex; align-items: center; gap: 0.5rem; margin-top: auto; }
-.cartButton { padding: 11px 20px; background-color: #000; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin: 0; margin-top: auto;width: 100%;max-width: 120px;}
-.cartButton:hover { background-color: #1e1e1e; }
-.counterWrap button { width: 42px; height: 42px; border-radius: 4px; border: none; background-color: #000; color: #cfcfcf; display: flex; justify-content: center; align-items: center; cursor: pointer; line-height: 30px; }
-.counterWrap button:hover { background-color: #1e1e1e; }
+.cartButton { padding: 11px 20px; background-color: #000; color: #fff; border: none; border-radius: 4px; cursor: pointer; margin: 0; margin-top: auto;width: 100%;max-width: 120px;font-weight: 500;}
+.cartButton:hover { background-color: #379a61;color: #000; }
+.counterWrap button { width: 42px; height: 42px; border-radius: 4px; border: none; background-color: #000; color: #cfcfcf; display: flex; justify-content: center; align-items: center; cursor: pointer; line-height: 30px;font-weight: 500; }
+.counterWrap button:hover { background-color: #379a61;color: #000; }
 .counterWrap span { font-size: 1.1rem; font-weight: 600; min-width: 20px; text-align: center; }
 .loading{ display: flex; justify-content: center; align-items: center;color: #5e5e5e;font-size: 40px;font-weight: 500; }
 
@@ -47,4 +47,8 @@
   .viewbookCard{width: calc((100% / 2) - 14px);}
   .booksWrapper>div .viewbookCard:nth-child(3n) { margin-right: 14px; }
   .booksWrapper>div .viewbookCard:nth-child(2n) { margin-right: 0; }
+}
+
+@media (max-width:767px) {
+	.main { padding: 15px 20px;}
 }

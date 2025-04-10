@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "../styles/Navbar.module.css";
-// import { Button } from "@/components/ui/button";
+
 const Navbar = () => {
   const [user, setUser] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // for user dropdown
+  const [navOpen, setNavOpen] = useState(false); // for mobile menu
   const router = useRouter();
 
   useEffect(() => {
@@ -28,8 +29,6 @@ const Navbar = () => {
 
     if (storedUser) {
       const user = JSON.parse(storedUser);
-
-      // 🔄 Clear cart in DB without blocking logout
       fetch("/api/cart/clear", {
         method: "POST",
         headers: {
@@ -41,9 +40,8 @@ const Navbar = () => {
       );
     }
 
-    // 🚀 Instantly remove user session and redirect
     localStorage.removeItem("user");
-    localStorage.removeItem("cart"); // Optional: also clear local cart
+    localStorage.removeItem("cart");
     setUser(null);
     router.push("/login");
   };
@@ -53,32 +51,42 @@ const Navbar = () => {
       <div className={styles.logo}>
         <Link href="/">Info Den</Link>
       </div>
-      <div className={styles.navLinks}>
-        <Link href="/" className="">
-          Home
-        </Link>
 
-        {/* ✅ Show Admin Link Only for Vendors */}
+      {/* Hamburger Icon */}
+      <button
+        className={styles.hamburger}
+        onClick={() => setNavOpen((prev) => !prev)}
+      >
+        ☰
+      </button>
+
+      <div
+        className={`${styles.navLinks} ${navOpen ? styles.navOpen : ""}`}
+        onClick={() => setNavOpen(false)} // close menu when link clicked
+      >
+        <Link href="/">Home</Link>
+
         {user?.vendorId && <Link href="/admin">Admin</Link>}
 
-        {user &&
-          !user.vendorId && ( // ✅ Show Cart for users only
+        {user && !user.vendorId && (
+          <>
             <Link href="/cart" className={styles.cartLink}>
               Cart
             </Link>
-          )}
-        {user &&
-          !user.vendorId && ( // ✅ Show Cart for users only
             <Link href="/orders" className={styles.cartLink}>
-            Your Orders
-          </Link>
-          )}
+              Your Orders
+            </Link>
+          </>
+        )}
 
         {user ? (
           <div className={styles.dropdown}>
             <button
               className={styles.userButton}
-              onClick={() => setIsOpen(!isOpen)}
+              onClick={(e) => {
+                e.stopPropagation(); // prevent navClose
+                setIsOpen(!isOpen);
+              }}
             >
               Hi{" "}
               {user?.email?.includes("@") ? user.email.split("@")[0] : "User"}
