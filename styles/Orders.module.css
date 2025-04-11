@@ -1,6 +1,5 @@
 .container { padding: 15px 30px; margin: 0 auto; min-height: calc(100vh - 69px); display: flex; flex-direction: column; }
 .orderCard { background: #000; border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: calc((100%/3) - 14px); margin-right: 14px; }
-.orderWrap .orderCard { margin-right: 0; }
 .itemsList { margin-top: 1rem; padding-left: 1rem; border-left: 2px solid #ddd; }
 .item { margin-bottom: 1rem; }
 .orderWrap { display: flex; flex-wrap: wrap; margin-top: 1rem; }
