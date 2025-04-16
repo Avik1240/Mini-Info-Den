@@ -39,10 +39,10 @@ export default function OrdersPage() {
         {orders.length === 0 ? (
           <div className={styles.orderEmpty}>
             <h1>Low on knowledge ??</h1>
+            <p className={styles.orderText}>You haven't placed any orders yet.</p>
             <p className={styles.orderExplore}>
               Order to grab some .....
             </p>
-            <p className={styles.orderText}>You haven't placed any orders yet.</p>
             <button
               onClick={handleButtonClick}
               className={styles.viewBooksButton}

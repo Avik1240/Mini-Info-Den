@@ -45,7 +45,7 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className={styles.mainWrapper}>
       <Navbar />
       <main className={styles.main}>
         <section className={styles.welcome}>

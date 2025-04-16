@@ -1,4 +1,4 @@
-.cartContainer { padding: 15px 30px; margin: 0 auto; min-height: calc(100vh - 69px); display: flex; flex-direction: column; }
+.cartContainer { padding: 15px 30px; margin: 0 auto; min-height: calc(100vh - 58px); display: flex; flex-direction: column; }
 .cartList { display: flex; flex-wrap: wrap; width: 80%; }
 .cartItem { padding: 1rem; border-radius: 10px; box-shadow: 0 2px 10px #0000001a; width: calc((100%/4) - 14px); margin-right: 14px; background-color: rgb(10, 10, 10); margin-top: 1rem; display: flex;flex-direction: column;}
 .cartList .cartItem:nth-child(4n) { margin-right: 0; }
