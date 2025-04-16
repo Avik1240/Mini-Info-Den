@@ -68,6 +68,15 @@ export default function AddBookForm() {
       }
     }
   }, []);
+  useEffect(() => {
+    const calculatedPrice = newBook.rentalFee + newBook.securityDeposit;
+    if (!isNaN(calculatedPrice)) {
+      setNewBook((prev) => ({
+        ...prev,
+        price: calculatedPrice,
+      }));
+    }
+  }, [newBook.rentalFee, newBook.securityDeposit]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -151,14 +160,14 @@ export default function AddBookForm() {
             </div>
             <div className={styles.formInputWrap}>
               <label>
-                Price <span className={styles.mandatory}>*</span>
+                Stock <span className={styles.mandatory}>*</span>
               </label>
               <input
                 type="number"
-                placeholder="Price"
-                value={newBook.price}
+                placeholder="Stock"
+                value={newBook.stock}
                 onChange={(e) =>
-                  setNewBook({ ...newBook, price: +e.target.value })
+                  setNewBook({ ...newBook, stock: +e.target.value })
                 }
                 required
               />
@@ -191,20 +200,22 @@ export default function AddBookForm() {
                 required
               />
             </div>
+
             <div className={styles.formInputWrap}>
               <label>
-                Stock <span className={styles.mandatory}>*</span>
+                Price <span className={styles.mandatory}>*</span>
               </label>
               <input
                 type="number"
-                placeholder="Stock"
-                value={newBook.stock}
-                onChange={(e) =>
-                  setNewBook({ ...newBook, stock: +e.target.value })
-                }
-                required
+                placeholder="Price"
+                value={newBook.price}
+                readOnly
               />
+              <small className={styles.helperText}>
+                (Price = Rental Fee + Security)
+              </small>
             </div>
+
             <button type="submit" className={styles.addBook}>
               {isEditMode ? "Update Book" : "Add Book"}
             </button>
