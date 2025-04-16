@@ -17,6 +17,44 @@ export default function AddBookForm() {
   });
 
   const router = useRouter();
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [bookId, setBookId] = useState(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const idFromQuery = params.get("bookId");
+    if (idFromQuery) {
+      setBookId(idFromQuery);
+      setIsEditMode(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (bookId) {
+      const fetchBook = async () => {
+        try {
+          const res = await fetch(`/api/books?bookId=${bookId}`);
+          const allBooks = await res.json();
+          const book = allBooks.find((b) => b._id === bookId);
+
+          if (book) {
+            setNewBook({
+              title: book.title,
+              author: book.author,
+              price: book.price,
+              rentalFee: book.rentalFee,
+              securityDeposit: book.securityDeposit,
+              stock: book.stock,
+            });
+          }
+        } catch (err) {
+          alert("Failed to fetch book data");
+        }
+      };
+
+      fetchBook();
+    }
+  }, [bookId]);
 
   // ✅ Get vendorId from localStorage
   useEffect(() => {
@@ -31,7 +69,7 @@ export default function AddBookForm() {
     }
   }, []);
 
-  const handleAddBook = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!vendorId) {
@@ -41,24 +79,36 @@ export default function AddBookForm() {
 
     try {
       const res = await fetch("/api/books", {
-        method: "POST",
+        method: isEditMode ? "PUT" : "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...newBook, vendorId }),
+        body: JSON.stringify({
+          ...newBook,
+          ...(isEditMode ? { bookId } : { vendorId }),
+        }),
       });
 
       if (!res.ok) {
-        throw new Error("Failed to add book");
+        throw new Error(
+          isEditMode ? "Failed to update book" : "Failed to add book"
+        );
       }
 
-      alert("Book added successfully!");
-      setNewBook({
-        title: "",
-        author: "",
-        price: 0,
-        rentalFee: 0,
-        securityDeposit: 0,
-        stock: 0,
-      });
+      alert(
+        isEditMode ? "Book updated successfully!" : "Book added successfully!"
+      );
+
+      if (!isEditMode) {
+        setNewBook({
+          title: "",
+          author: "",
+          price: 0,
+          rentalFee: 0,
+          securityDeposit: 0,
+          stock: 0,
+        });
+      } else {
+        router.push("/admin"); // or wherever the book list is
+      }
     } catch (error) {
       alert(error.message || "Something went wrong!");
     }
@@ -69,8 +119,8 @@ export default function AddBookForm() {
       <Navbar />
       <main className={styles.main}>
         <section>
-          <h1 className={styles.h1}>Add Book</h1>
-          <form onSubmit={handleAddBook} className={styles.form}>
+          <h1 className={styles.h1}>{isEditMode ? "Edit Book" : "Add Book"}</h1>
+          <form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.formInputWrap}>
               <label>
                 Title <span className={styles.mandatory}>*</span>
@@ -155,7 +205,9 @@ export default function AddBookForm() {
                 required
               />
             </div>
-            <button type="submit" className={styles.addBook}>Add Book</button>
+            <button type="submit" className={styles.addBook}>
+              {isEditMode ? "Update Book" : "Add Book"}
+            </button>
           </form>
         </section>
       </main>

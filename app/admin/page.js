@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation"; // ✅ Read query from URL
 import styles from "../../styles/Admin.module.css";
 import Navbar from "../../components/Navbar";
-import { Trash2, RefreshCcw } from "lucide-react"; // ✅ Import delete icon
+import { Trash2, RefreshCcw, FilePenLine } from "lucide-react";
 
 export default function Admin() {
   const [books, setBooks] = useState([]);
@@ -135,9 +135,18 @@ export default function Admin() {
                       <h2 className={styles.title}>
                         {book.title}
                         <button
+                          className={styles.editButton}
+                          onClick={() =>
+                            router.push(`/addBook?page=edit&bookId=${book._id}`)
+                          }
+                          title="Edit"
+                        >
+                          <FilePenLine size={20} color="#0070f3" />
+                        </button>
+                        <button
                           className={styles.deleteButton}
                           onClick={() => handleDelete(book._id)}
-                          disabled={loading} // ✅ Disable button while deleting
+                          disabled={loading}
                           title="Delete"
                         >
                           <Trash2 size={20} color={loading ? "gray" : "red"} />

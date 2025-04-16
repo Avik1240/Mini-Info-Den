@@ -57,6 +57,40 @@ export default async function handler(req, res) {
         .status(500)
         .json({ message: "Error adding book", error: error.message });
     }
+  } else if (req.method === "PUT") {
+    const { bookId, title, author, price, rentalFee, securityDeposit, stock } =
+      req.body;
+
+    if (!bookId) {
+      return res
+        .status(400)
+        .json({ message: "Book ID is required for update" });
+    }
+
+    try {
+      const updatedBook = await Book.findByIdAndUpdate(
+        bookId,
+        {
+          title,
+          author,
+          price,
+          rentalFee,
+          securityDeposit,
+          stock,
+        },
+        { new: true } // Return the updated document
+      );
+
+      if (!updatedBook) {
+        return res.status(404).json({ message: "Book not found" });
+      }
+
+      res.status(200).json(updatedBook);
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Error updating book", error: error.message });
+    }
   } else if (req.method === "DELETE") {
     const { bookId } = req.body; // Get book ID from request body
 

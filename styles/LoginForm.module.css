@@ -3,8 +3,8 @@
 .title { text-align: center; }
 .formGroup { margin-bottom: 15px; }
 .formLabel { display: block; margin-bottom: 5px; }
-.formInput { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #686868; border-radius: 4px; background-color: #222;}
-.submitButton{ background-color: #000; padding: 8px 15px; border-radius: 4px; border: none;min-width: 100px;cursor: pointer;text-align: center;font-size: 1rem;width: 100%;margin: .5rem 0;font-weight: 500;box-shadow: 0 0 10px #242424;}
+.formInput { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #686868; border-radius: 4px; background-color: #222;color: #cfcfcf;}
+.submitButton{ background-color: #000; padding: 8px 15px; border-radius: 4px; border: none;min-width: 100px;cursor: pointer;text-align: center;font-size: 1rem;width: 100%;margin: .5rem 0;font-weight: 500;box-shadow: 0 0 10px #242424;color: #cfcfcf;}
 .submitButton:hover{ background-color: #379a61;color: #000; }
 .toggleText{display: flex;justify-content: center;align-items: center;margin-top: .5rem;}
 .forgotPassword {color:#379a61; cursor: pointer; text-decoration: underline; font-size: 14px; margin-bottom: .5rem;transition: all .2s ease;font-weight: 500;}
