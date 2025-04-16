@@ -26,7 +26,7 @@
 .booksWrapper>div .viewbookCard:nth-child(4n) { margin-right: 0; }
 .viewbookCard h3 { margin: 0; color: #cfcfcf; }
 .viewbookCard p { margin: 0.5rem 0; color: #cfcfcf; }
-.searchInput { padding: 12.5px 10px; width: 300px; border: 1px solid #686868; border-radius: 4px; background-color: #0a0a0a;}
+.searchInput { padding: 12.5px 10px; width: 300px; border: 1px solid #686868; border-radius: 4px; background-color: #0a0a0a;color: #cfcfcf;}
 .searchButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin: 0 1rem;font-weight: 500; }
 .searchButton:hover { background-color: #379a61;color: #000; }
 .searchWrap { display: flex; margin: 1rem 0; }
