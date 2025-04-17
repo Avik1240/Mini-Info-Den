@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import styles from "../../styles/Cart.module.css"; // reuse cart styles
+import styles from "../../styles/Cart.module.css";
 import Navbar from "../../components/Navbar";
 
 export default function CheckoutPage() {
@@ -33,8 +33,11 @@ export default function CheckoutPage() {
   }, [cart]);
 
   const placeOrder = async () => {
-    if (!user) return alert("Please login to place order.");
-  
+    if (!user) {
+      alert("Please login to place order.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/orders/all", {
         method: "POST",
@@ -49,27 +52,29 @@ export default function CheckoutPage() {
           totalAmount: finalAmount,
         }),
       });
-  
+
       if (res.ok) {
         const data = await res.json();
-  
-        // ✅ Clear cart from MongoDB
-        const clearRes = await fetch("/api/cart/clear", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userId: user._id }), // keep this as string
-          });
-          
-  
-        if (!clearRes.ok) {
-          console.warn("Failed to clear cart in DB");
-        }
-  
-        // ✅ Clear local cart
+
+        // ✅ Clear local cart immediately
         localStorage.removeItem("cart");
         localStorage.setItem("cartCleared", "true");
-  
-        // ✅ Redirect
+
+        // ✅ Clear MongoDB cart
+        const clearRes = await fetch("/api/cart/clear", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: user._id }),
+        });
+
+        if (!clearRes.ok) {
+          console.warn("Failed to clear cart in DB");
+          const errorData = await clearRes.json();
+          alert("Cart not cleared in DB: " + errorData.message);
+        }
+        
+
+        // ✅ Redirect to thank you page
         router.push(`/thankyou?orderId=${data.orderId}`);
       } else {
         console.error("Order failed");
@@ -78,8 +83,6 @@ export default function CheckoutPage() {
       console.error("Error placing order:", err);
     }
   };
-  
-  
 
   return (
     <div>

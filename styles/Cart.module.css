@@ -21,20 +21,30 @@
 .summaryBox p span { font-weight: 600; }
 .buyNowButton { padding: 11px 20px; background-color: rgb(10, 10, 10); color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin: 0; width: 100%;margin-top: auto;font-weight: 500;}
 .buyNowButton:hover { background-color: #379a61;color: #000; }
-
+.buttonWrap { display: flex; width: 100%; margin-top: 1rem; }
+.addButtonWrap { display: flex; margin-left: 1rem;}
 @media (max-width:1399px) {
     .cartItem{width: calc((100% / 3) - 14px);}
     .cartList .cartItem:nth-child(4n) { margin-right: 14px; }
     .cartList .cartItem:nth-child(3n) { margin-right: 0; }
     .cartList{width: 100%;}
     .summaryBox { width: 100%;}
+    .summaryBox h3 { margin-bottom: 1rem;}
 }
 @media (max-width:991px) {
     .cartItem{width: calc((100% / 2) - 14px);}
     .cartList .cartItem:nth-child(3n) { margin-right: 14px; }
     .cartList .cartItem:nth-child(2n) { margin-right: 0; }
+    .summaryBox h3 { font-size: 1.8rem;}
   }
 
   @media (max-width:767px) {
 	.cartContainer { padding: 15px 20px;}
+  .summaryBox h3 { font-size: 1.5rem;}
 }
+@media (max-width:575) {
+	.cartItem{width: 100%;margin-right: 0;}
+  .title { font-size: 1.2rem;}
+	.cartList .cartItem:nth-child(3n) { margin-right: 0; }
+	.cartList .cartItem:nth-child(2n) { margin-right: 0; }
+  }

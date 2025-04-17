@@ -150,13 +150,16 @@ export default function Books() {
               placeholder="Search books..."
               className={styles.searchInput}
             />
+
             <button type="submit" className={styles.searchButton}>
               Search
             </button>
           </form>
-          <button onClick={fetchBooks} className={styles.refreshButton}>
-            <RefreshCcw size={20} />
-          </button>
+          <div className={styles.addButtonWrap}>
+            <button onClick={fetchBooks} className={styles.refreshButton}>
+              <RefreshCcw size={20} />
+            </button>
+          </div>
         </div>
 
         <div className={styles.booksWrapper}>
@@ -193,7 +196,7 @@ export default function Books() {
               ))}
             </div>
           ) : (
-            <p>No books found.</p>
+            <p className={styles.loading}>!!! No books found !!!</p>
           )}
         </div>
       </main>

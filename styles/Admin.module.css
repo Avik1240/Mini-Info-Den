@@ -4,9 +4,9 @@
 .form { display: flex; flex-wrap: wrap; margin-top: -1rem; }
 .formInputWrap { width: calc((100% / 3) - 14px); margin-right: 14px; margin-top: 1rem; }
 .formInputWrap label { margin-bottom: .5rem; display: block; }
-.form input { padding: 13.5px 10px; border: none; border-radius: 4px; width: 100%; background-color: rgb(10, 10, 10); color: #cfcfcf;}
-.form button.addBook { padding: 11px 16px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; text-align: center; width: 100%; max-width: 100px; cursor: pointer; margin-top: 0; font-weight: 500;margin-right: 1rem;}
-.form button.addBook:hover { background-color: #379a61;color: #000; }
+.form input { padding: 13.5px 10px; border: none; border-radius: 4px; width: 100%; background-color: rgb(10, 10, 10); color: #cfcfcf; }
+.form button.addBook { padding: 11px 16px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; text-align: center; width: 100%; max-width: 100px; cursor: pointer; margin-top: 0; font-weight: 500; margin-right: 1rem; }
+.form button.addBook:hover { background-color: #379a61; color: #000; }
 .order { border: none; padding: 10px; margin-bottom: 10px; border-radius: 4px; }
 .bookGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem; }
 .booksWrapper { margin-bottom: 1rem; }
@@ -18,26 +18,29 @@
 .bookCard h3 { margin: 0; color: #cfcfcf; }
 .bookCard p { margin: 0.5rem 0; color: #cfcfcf; }
 .searchInput { padding: 12.5px 10px; width: 300px; border: 1px solid #686868; border-radius: 4px; background-color: #0a0a0a; }
-.searchButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin: 0 1rem; font-weight: 500;}
-.searchButton:hover { background-color: #379a61; color: #000;}
-.addButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin-right: 1rem; font-weight: 500;}
-.addButton:hover { background-color: #379a61; color: #000;}
+.searchButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin-left: 1rem; font-weight: 500; }
+.searchButton:hover { background-color: #379a61; color: #000; }
+.addButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin-right: 1rem; font-weight: 500; }
+.addButton:hover { background-color: #379a61; color: #000; }
+
 /* form button.viewButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin-right: 1rem; font-weight: 500;max-width: unset;}
 form button.viewButton:hover { background-color: #379a61; color: #000;} */
-.searchWrap { display: flex; margin: 1rem 0; }
-.refreshButton { background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; width: 42px; justify-content: center; height: 42px;}
-.refreshButton:hover { background-color: #379a61; color: #000;}
+.searchWrap { display: flex; margin: 1rem 0; flex-wrap: wrap;}
+.refreshButton { background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; width: 42px; justify-content: center; height: 42px; }
+.refreshButton:hover { background-color: #379a61; color: #000; }
 .mandatory { color: #f54141; }
 .addBook { max-width: 200px !important; }
-.title { font-size: 1.5rem; color: #cfcfcf; font-weight: 600;padding-right: 55px;position: relative; }
-.deleteButton { background: none; border: none; cursor: pointer; position: absolute; top: 7px; right: 30px;line-height: 1; }
+.title { font-size: 1.5rem; color: #cfcfcf; font-weight: 600; padding-right: 55px; position: relative; }
+.deleteButton { background: none; border: none; cursor: pointer; position: absolute; top: 7px; right: 30px; line-height: 1; }
 .deleteButton svg { stroke: #f54141; }
 .deleteButton:hover { opacity: 0.7; }
-.editButton { background: none; border: none; cursor: pointer; position: absolute; top: 7px; right: 0;line-height: 1; }
+.editButton { background: none; border: none; cursor: pointer; position: absolute; top: 7px; right: 0; line-height: 1; }
 .editButton svg { stroke: #8f8f8f; }
 .editButton:hover { opacity: 0.7; }
 .loading { display: flex; justify-content: center; align-items: center; color: #5e5e5e; font-size: 40px; font-weight: 500; width: 100%; }
-.helperText {color: #747474;font-style: italic;font-size: 12px;font-weight: 500;}
+.helperText { color: #747474; font-style: italic; font-size: 12px; font-weight: 500; }
+.buttonWrap { display: flex; width: 100%; margin-top: 1rem; }
+.addButtonWrap { display: flex; margin-left: 1rem;}
 @media (max-width:1399px) {
 	.bookCard { width: calc((100% / 3) - 14px); }
 	.booksWrapper>div .bookCard:nth-child(4n) { margin-right: 14px; }
@@ -47,8 +50,29 @@ form button.viewButton:hover { background-color: #379a61; color: #000;} */
 	.bookCard { width: calc((100% / 2) - 14px); }
 	.booksWrapper>div .bookCard:nth-child(3n) { margin-right: 14px; }
 	.booksWrapper>div .bookCard:nth-child(2n) { margin-right: 0; }
-    .formInputWrap { width: calc((100% / 2) - 14px);}
+	.formInputWrap { width: calc((100% / 2) - 14px); }
 }
 @media (max-width:767px) {
-	.main { padding: 15px 20px;}
+	.main { padding: 15px 20px; }
+}
+@media (max-width:620px) {
+	.bookCard { width: 100%; margin-right: 0; }
+	.booksWrapper>div .bookCard:nth-child(3n) { margin-right: 0; }
+	.booksWrapper>div .bookCard:nth-child(2n) { margin-right: 0; }
+	.searchInput { width: 200px; }
+}
+@media (max-width:520px) {
+	.addButtonWrap{margin-top: 1rem;width: 100%;margin-left: 0;}
+}
+@media (max-width:343px) {
+	.searchInput { width: 175px; }
+}
+@media (max-width:575) {
+	.h1 { font-size: 1.5rem;}
+	.title { font-size: 1.2rem;}
+	.h2 { font-size: 1.2rem;}
+	.formInputWrap { width: 100%; margin-right: 0; }
+	.buttonWrap button { max-width: 50% !important; }
+	.buttonWrap button:last-child { margin-right: 0; }
+
 }

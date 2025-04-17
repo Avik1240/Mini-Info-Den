@@ -215,17 +215,18 @@ export default function AddBookForm() {
                 (Price = Rental Fee + Security)
               </small>
             </div>
-
-            <button type="submit" className={styles.addBook}>
-              {isEditMode ? "Update Book" : "Add Book"}
-            </button>
-            <button
-              className={styles.addBook}
-              onClick={() => router.push(`/admin`)}
-              title="View All Books"
-            >
-              View All Books
-            </button>
+            <div className={styles.buttonWrap}>
+              <button type="submit" className={styles.addBook}>
+                {isEditMode ? "Update Book" : "Add Book"}
+              </button>
+              <button
+                className={styles.addBook}
+                onClick={() => router.push(`/admin`)}
+                title="View All Books"
+              >
+                View All Books
+              </button>
+            </div>
           </form>
         </section>
       </main>

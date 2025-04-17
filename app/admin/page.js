@@ -116,6 +116,7 @@ export default function Admin() {
                   Search
                 </button>
               </form>
+              <div className={styles.addButtonWrap}>
                 <button
                   className={styles.addButton}
                   onClick={() => router.push("/addBook")}
@@ -123,13 +124,14 @@ export default function Admin() {
                 >
                   Add Book
                 </button>
-              <button
-                onClick={fetchBooks}
-                className={styles.refreshButton}
-                title="Refresh Books"
-              >
-                <RefreshCcw size={20} />
-              </button>
+                <button
+                  onClick={fetchBooks}
+                  className={styles.refreshButton}
+                  title="Refresh Books"
+                >
+                  <RefreshCcw size={20} />
+                </button>
+              </div>
             </div>
 
             <div className={styles.booksWrapper}>

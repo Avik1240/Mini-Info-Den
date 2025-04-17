@@ -12,7 +12,7 @@
 .main { padding: 15px 30px; margin: 0 auto;position: relative;}
 .h1 { font-size: 2rem !important; margin-bottom: 20px; color: #cfcfcf; }
 .h2 { font-size: 1.5rem; margin: 20px 0; color: #cfcfcf; }
-.title { font-size: 1.5rem; color: #cfcfcf; font-weight: 600;}
+.title { font-size: 1.5rem; color: #cfcfcf; font-weight: 600;margin-bottom: .5rem;}
 .form { display: flex; flex-direction: column; gap: 10px; max-width: 400px; }
 .form input { padding: 10px; border: none; border-radius: 4px; }
 .form button { padding: 10px; background-color: #379a61; color: #cfcfcf; border: none; border-radius: 4px; }
@@ -25,11 +25,11 @@
 .booksWrapper>div .viewbookCard:last-child { margin-right: 0; }
 .booksWrapper>div .viewbookCard:nth-child(4n) { margin-right: 0; }
 .viewbookCard h3 { margin: 0; color: #cfcfcf; }
-.viewbookCard p { margin: 0.5rem 0; color: #cfcfcf; }
+.viewbookCard p { margin-bottom: 0.5rem ; color: #cfcfcf; }
 .searchInput { padding: 12.5px 10px; width: 300px; border: 1px solid #686868; border-radius: 4px; background-color: #0a0a0a;color: #cfcfcf;}
-.searchButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin: 0 1rem;font-weight: 500; }
+.searchButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin-left: 1rem;font-weight: 500; }
 .searchButton:hover { background-color: #379a61;color: #000; }
-.searchWrap { display: flex; margin: 1rem 0; }
+.searchWrap { display: flex; margin: 1rem 0; flex-wrap: wrap;}
 .counterWrap { display: flex; align-items: center; gap: 0.5rem; margin-top: auto; }
 .cartButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin: 0; margin-top: auto;width: 100%;max-width: 120px;font-weight: 500;}
 .cartButton:hover { background-color: #379a61;color: #000; }
@@ -37,7 +37,8 @@
 .counterWrap button:hover { background-color: #379a61;color: #000; }
 .counterWrap span { font-size: 1.1rem; font-weight: 600; min-width: 20px; text-align: center; }
 .loading{ display: flex; justify-content: center; align-items: center;color: #5e5e5e;font-size: 40px;font-weight: 500; }
-
+.searchForm { display: flex; }
+.addButtonWrap { display: flex; margin-left: 1rem;}
 @media (max-width:1399px) {
   .viewbookCard{width: calc((100% / 3) - 14px);}
   .booksWrapper>div .viewbookCard:nth-child(4n) { margin-right: 14px; }
@@ -50,5 +51,16 @@
 }
 
 @media (max-width:767px) {
-	.main { padding: 15px 20px;}
+  .main { padding: 15px 20px;}
+}
+@media (max-width:501) {
+  .searchInput{width: 180px;}
+}
+@media (max-width:575) {
+  .viewbookCard{width: 100%;margin-right: 0;}
+  .booksWrapper>div .viewbookCard:nth-child(3n) { margin-right: 0; }
+  .booksWrapper>div .viewbookCard:nth-child(2n) { margin-right: 0; }
+}
+@media (max-width:501) {
+  .addButtonWrap{margin-left: 0;margin-top: 1rem;width: 100%;}
 }

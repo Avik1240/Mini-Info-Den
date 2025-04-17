@@ -22,7 +22,6 @@ export default function ThankYouPage() {
       <div className={styles.thankContainer}>
         <div>
           <h1>Order Placed Successfully!</h1>
-          <p>Your books will be delivered shortly.</p>
           {orderId && (
             <p>
               <strong>Order ID:</strong> {orderId}
