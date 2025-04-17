@@ -116,6 +116,13 @@ export default function Admin() {
                   Search
                 </button>
               </form>
+                <button
+                  className={styles.addButton}
+                  onClick={() => router.push("/addBook")}
+                  title="Add Book"
+                >
+                  Add Book
+                </button>
               <button
                 onClick={fetchBooks}
                 className={styles.refreshButton}

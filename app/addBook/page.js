@@ -219,6 +219,13 @@ export default function AddBookForm() {
             <button type="submit" className={styles.addBook}>
               {isEditMode ? "Update Book" : "Add Book"}
             </button>
+            <button
+              className={styles.addBook}
+              onClick={() => router.push(`/admin`)}
+              title="View All Books"
+            >
+              View All Books
+            </button>
           </form>
         </section>
       </main>

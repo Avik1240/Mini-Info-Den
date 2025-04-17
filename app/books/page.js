@@ -129,7 +129,7 @@ export default function Books() {
   }, [query]);
 
   return (
-    <div>
+    <div className={styles.mainWrapper}>
       <Navbar />
       <main className={styles.main}>
         <h1>Books</h1>

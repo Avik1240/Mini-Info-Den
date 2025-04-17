@@ -10,7 +10,7 @@
 .userButton{padding: 14px 20px 14px 8px;}
 .userButton,.dropdown{position: relative;transition: linear .2s ease;}
 .userButton:after{position: absolute;top: 47%;right: 5px;transform: translateY(-50%);content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10.121' height='5.811' viewBox='0 0 10.121 5.811'%3E%3Cpath id='Path_37881' data-name='Path 37881' d='M2580,108l4,4,4-4' transform='translate(-2578.94 -106.939)' fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'/%3E%3C/svg%3E");line-height: 1;}
-.dropdownContent { position: absolute; top: 110%; right: 0; line-height: 1; width: 100%; }
+.dropdownContent { position: absolute; top: 110%; right: 0; line-height: 1; width: 100%; z-index: 2;}
 .dropdownContent button { background-color: #000; border-bottom-color: #000; border-radius: 4px; padding: 11px 8px; line-height: 1; width: 100%; font-weight: 500;box-shadow: 0px 0px 10px #414141;}
 .dropdownContent button:hover { background-color: #379a61; border-bottom-color: #379a61; color: #000;}
 .cartLink { position: relative; text-decoration: none; color: white; font-size: 16px; }
