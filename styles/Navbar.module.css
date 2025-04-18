@@ -1,4 +1,4 @@
-.navbar { display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background-color: rgb(10, 10, 10); color: #cfcfcf; max-height: 58px; position: relative; box-shadow: 0px 0px 10px #414141; }
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 0 30px; background-color: rgb(10, 10, 10); color: #cfcfcf; max-height: 58px; position: relative; box-shadow: 0px 0px 10px #414141; position: sticky; top: 0; z-index: 1000; }
 .hamburger { display: none; font-size: 2rem; background: none; border: none; color: white; cursor: pointer; }
 .logo { padding: 15px 0; }
 .logo a { font-size: 1.2rem; font-weight: bold; color: #cfcfcf; text-decoration: none; }

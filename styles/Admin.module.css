@@ -37,7 +37,7 @@ form button.viewButton:hover { background-color: #379a61; color: #000;} */
 .editButton { background: none; border: none; cursor: pointer; position: absolute; top: 7px; right: 0; line-height: 1; }
 .editButton svg { stroke: #8f8f8f; }
 .editButton:hover { opacity: 0.7; }
-.loading { display: flex; justify-content: center; align-items: center; color: #5e5e5e; font-size: 40px; font-weight: 500; width: 100%; }
+.loading { display: flex; justify-content: center; align-items: center; color: #9b9b9b; font-size: 40px; font-weight: 500; width: 100%; }
 .helperText { color: #747474; font-style: italic; font-size: 12px; font-weight: 500; }
 .buttonWrap { display: flex; width: 100%; margin-top: 1rem; }
 .addButtonWrap { display: flex; margin-left: 1rem; }
