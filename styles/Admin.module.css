@@ -25,7 +25,7 @@
 
 /* form button.viewButton { padding: 11px 20px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; margin-right: 1rem; font-weight: 500;max-width: unset;}
 form button.viewButton:hover { background-color: #379a61; color: #000;} */
-.searchWrap { display: flex; margin: 1rem 0; flex-wrap: wrap;}
+.searchWrap { display: flex; margin: 1rem 0; flex-wrap: wrap; }
 .refreshButton { background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; display: flex; align-items: center; width: 42px; justify-content: center; height: 42px; }
 .refreshButton:hover { background-color: #379a61; color: #000; }
 .mandatory { color: #f54141; }
@@ -40,7 +40,7 @@ form button.viewButton:hover { background-color: #379a61; color: #000;} */
 .loading { display: flex; justify-content: center; align-items: center; color: #5e5e5e; font-size: 40px; font-weight: 500; width: 100%; }
 .helperText { color: #747474; font-style: italic; font-size: 12px; font-weight: 500; }
 .buttonWrap { display: flex; width: 100%; margin-top: 1rem; }
-.addButtonWrap { display: flex; margin-left: 1rem;}
+.addButtonWrap { display: flex; margin-left: 1rem; }
 @media (max-width:1399px) {
 	.bookCard { width: calc((100% / 3) - 14px); }
 	.booksWrapper>div .bookCard:nth-child(4n) { margin-right: 14px; }
@@ -62,17 +62,16 @@ form button.viewButton:hover { background-color: #379a61; color: #000;} */
 	.searchInput { width: 200px; }
 }
 @media (max-width:520px) {
-	.addButtonWrap{margin-top: 1rem;width: 100%;margin-left: 0;}
+	.addButtonWrap { margin-top: 1rem; width: 100%; margin-left: 0; }
 }
 @media (max-width:343px) {
 	.searchInput { width: 175px; }
 }
 @media (max-width:575) {
-	.h1 { font-size: 1.5rem;}
-	.title { font-size: 1.2rem;}
-	.h2 { font-size: 1.2rem;}
+	.h1 { font-size: 1.5rem; }
+	.title { font-size: 1.2rem; }
+	.h2 { font-size: 1.2rem; }
 	.formInputWrap { width: 100%; margin-right: 0; }
 	.buttonWrap button { max-width: 50% !important; }
 	.buttonWrap button:last-child { margin-right: 0; }
-
 }

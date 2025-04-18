@@ -39,6 +39,6 @@ button { font-family: var(--font-poppins) !important; }
 }
 @media (max-width:767) {
 	h1 { font-size: 24px; }
-	h3{font-size: 16px;}
-	p{font-size: 14px;}
+	h3 { font-size: 16px; }
+	p { font-size: 14px; }
 }
