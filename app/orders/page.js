@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
   const [user, setUser] = useState(null);
-    const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -39,10 +39,10 @@ export default function OrdersPage() {
         {orders.length === 0 ? (
           <div className={styles.orderEmpty}>
             <h1>Low on knowledge ??</h1>
-            <p className={styles.orderText}>You haven't placed any orders yet.</p>
-            <p className={styles.orderExplore}>
-              Order to grab some .....
+            <p className={styles.orderText}>
+              You haven't placed any orders yet.
             </p>
+            <p className={styles.orderExplore}>Order to grab some .....</p>
             <button
               onClick={handleButtonClick}
               className={styles.viewBooksButton}
@@ -56,9 +56,13 @@ export default function OrdersPage() {
             <div className={styles.orderWrap}>
               {orders.map((order, index) => (
                 <div key={index} className={styles.orderCard}>
-                  <h3>Order ID: {order._id}</h3>
-                  <p>Date: {new Date(order.createdAt).toLocaleString()}</p>
-                  <p>Total: ₹{order.totalAmount.toFixed(2)}</p>
+                  <div className={styles.orderInfoWrap}>
+                    <h3>Order ID: {order._id}</h3>
+                    <div className={styles.orderInfoIn}>
+                      <p>Date: {new Date(order.createdAt).toLocaleString()}</p>
+                      <p>Total: ₹{order.totalAmount.toFixed(2)}</p>
+                    </div>
+                  </div>
                   <div className={styles.itemsList}>
                     {order.items.map((item, idx) => (
                       <div key={idx} className={styles.item}>

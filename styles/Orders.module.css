@@ -1,20 +1,32 @@
 .container { padding: 15px 30px; margin: 0 auto; min-height: calc(100vh - 58px); display: flex; flex-direction: column; }
-.orderCard { background: #000; border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); width: calc((100%/3) - 14px); margin-right: 14px; }
-.itemsList { margin-top: 1rem; padding-left: 1rem; border-left: 2px solid #ddd; }
-.item { margin-bottom: 1rem; }
-.orderWrap { display: flex; flex-wrap: wrap; margin-top: 1rem; }
+.orderCard { background: #1c1c1c; border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem; box-shadow: 0 0 10px #242424; width: 100%;}
+.itemsList { margin-top: 1rem; display: flex; flex-wrap: wrap; }
+.item { margin-bottom: 1rem; width: calc((100% / 4) - 14px); background: #000; margin-right: 14px; border-radius: 10px; padding: 10px; }
+.orderWrap { margin-top: 1rem; }
 .orderEmpty h1 { color: #5e5e5e; font-size: 40px; margin-bottom: 0; }
 .orderEmpty { text-align: center; margin: auto; color: #5e5e5e; font-size: 16px; }
 .orderEmpty .orderExplore { color: #d1d1d1; }
 .orderEmpty .orderText { margin-top: .3rem; font-weight: 500; }
 .viewBooksButton { margin-top: 16px; padding: 8.5px 18px; background-color: #000; color: #cfcfcf; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; transition: background-color 0.3s ease; width: 100%; max-width: 200px; font-weight: 500; box-shadow: 0 0 10px #242424; }
 .viewBooksButton:hover { background-color: #379a61; color: #000; }
-@media (max-width:1399px) {
-	.orderCard { width: calc((100%/2) - 14px); }
+.orderInfoWrap{display: flex;align-items: center;flex-wrap: wrap;}
+.orderInfoWrap h3{margin-right: 1rem;} 
+.orderInfoWrap > .orderInfoIn{margin-left: auto;display: flex;align-items: center;}
+.orderInfoWrap > .orderInfoIn p:first-child{margin-right: 1rem;}
+@media (max-width:1199px) {
+	.item { width: calc((100% / 3) - 14px);}
+}
+@media (max-width:991px) {
+	.item { width: calc((100% / 2) - 14px);}
+}
+@media (max-width:829px) {
+	.orderInfoWrap > .orderInfoIn{margin-left: unset;margin-top: .5rem;}
 }
 @media (max-width:767px) {
 	.container { padding: 15px 20px; }
+	.orderInfoWrap > .orderInfoIn{width: 100%;}
 }
 @media (max-width:575) {
+	.item { width: 100%;margin-right: 0;}
 	.orderCard { width: 100%; margin-right: 0; }
 }
